@@ -1,0 +1,28 @@
+<DOCUMENT!>
+<html>
+<head>
+<script>
+function ann (selector, el) {
+     if (!el) {el = document;}
+     return el.querySelector(selector);
+}
+
+var DOMElementsByClass = ann(".class1");
+console.log(DOMElementsByClass);
+
+var DOMElementsByTagName = ann('span');
+console.log(DOMElementsByTagName);
+
+var DOMElementByID = ann('#someID');
+console.log(DOMElementByID);
+ 
+</script>
+</head>
+<body>
+
+<div class="class1"><div>
+<span class="class1"><span>
+<span id="someID">M</span>
+
+</body>
+</html>
