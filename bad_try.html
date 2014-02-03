@@ -2,27 +2,61 @@
 <html>
 <head>
 <script>
-function ann (selector, el) {
-     if (!el) {el = document;}
-     return el.querySelector(selector);
+var ann = function(selector){
+    return new ann.annObject(selector); 
+};
+
+ann.annObject = function(selector){
+    // analize selector
+	var id = selector.match(/^([a-zA-Z]+)/);
+    var tags = selector.match(/^([a-zA-Z]+)?(\.[a-z1-9]+)/);
+    var elementsById = id;
+	var elementsByTagName = [];
+    var elementsByClassNames = [];
+    
+    var result = [];
+    
+    if(tags){
+    
+    if(tags[2]){
+        elementsByClassNames = document.getElementsByClassName(tags[2].replace('.', ' '));
+		
+        
+        for(var i = 0; i < elementsByClassNames.length; i++){
+              if( tags[1] && elementsByClassNames[i].tagName.toLowerCase() !== tags[1].toLowerCase())
+                continue;
+                              
+
+             result.push(elementsByClassNames[i]);
+          }
+    }else if(tags[1]){
+        result = document.getElementsByTagName(tags[1]);
+		
+    }
+    }
+    
+        
+    this.domElements = result;
+	
 }
 
-var DOMElementsByClass = ann(".class1");
-console.log(DOMElementsByClass);
+ann.annObject.prototype = {
+    test : function(){},
+    getDomElements : function(){
+        return this.domElements;
+    }
+};
 
-var DOMElementsByTagName = ann('span');
-console.log(DOMElementsByTagName);
 
-var DOMElementByID = ann('#someID');
-console.log(DOMElementByID);
+console.log( ann('someID') );
  
 </script>
 </head>
 <body>
 
-<div class="class1"><div>
-<span class="class1"><span>
-<span id="someID">M</span>
 
+<span class="class1"><span>
+<span id="someID"><div class="class1"><div></span>
+<button style="width: 100px; height: 100px;" onclick=""></button>
 </body>
 </html>
