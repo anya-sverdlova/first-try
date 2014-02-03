@@ -9,15 +9,15 @@ var ann = function(selector){
 ann.annObject = function(selector){
     // analize selector
 	var id = selector.match(/^([a-zA-Z]+)/);
-    var tags = selector.match(/^([a-zA-Z]+)?(\.[a-z1-9]+)/);
+    var tags = selector.match(/^([a-zA-Z]+)?(\.[a-z1-9]+)/);  <!--Как различать теги и классы? Для них же одинаковое регулярное выражение получается-->
     var elementsById = id;
 	var elementsByTagName = [];
     var elementsByClassNames = [];
-    
+   
     var result = [];
     
     if(tags){
-    
+    <!--Так. насколько я понимаю, мы предполагаем, что если элементов больше двух (то есть первый - id, второй - тег), то третий точно будет тегом? То есть в этом варианте будет действовать правило, что указывать нужно в такой именно последовательности: id, тег и только потом - сколько угодно классов? А если указать id и класс элемента? Тогда, получается, он будет tags[1] в получившемся массиве - кстати, а где мы его получаем? У нас же match не возвращает массив, если не стоит g. Мануал советуют использовать .exec для получения массива)) В общем, что, если сделать поиск с помощью .exec, а потом полученный массив проанализировать на предмет совпадения элементов с именами тегов - их же ж не так много, а все, что не совпадает - определить как классы?-->
     if(tags[2]){
         elementsByClassNames = document.getElementsByClassName(tags[2].replace('.', ' '));
 		
@@ -37,6 +37,7 @@ ann.annObject = function(selector){
     
         
     this.domElements = result;
+	alert(this.domElements);
 	
 }
 
@@ -49,7 +50,7 @@ ann.annObject.prototype = {
 
 
 console.log( ann('someID') );
- 
+<!--Возвращает мой объект, как получать в итоге доступ к элементам на странице?-->
 </script>
 </head>
 <body>
