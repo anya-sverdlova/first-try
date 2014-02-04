@@ -1,0 +1,96 @@
+body {
+margin: 0;
+background: grey;
+font-family: 'Arial';
+}
+#cleaner {
+clear: both;
+}
+#cover {
+width: 385px;
+height: 425px;
+margin: auto;
+background: #ffffff;
+margin-top: 7%;
+}
+.page_title, .settings, .rating, .stars, .close, .reviews, .add_rev  {
+padding: 5px;
+float: left;
+font-size: 14px;
+}
+.close {
+float: right;
+}
+.page_title {
+width: 295px;
+height: 18px;
+background: #3399cc;
+text-align: left;
+color: white;
+}
+.settings {
+width: 48px;
+height: 18px;
+}
+.close:hover, .settings:hover {
+background: #3399cc;
+color: white;
+cursor: pointer;
+}
+.stars img {
+float: left;
+padding: 0 3px;
+margin-top: -2px;
+}
+.reviews, .add_rev {
+font-size: 11px;
+margin-top: 5px;
+}
+.reviews {
+margin-left: 10px;
+}
+.reviews:active, .add_rev:active {
+background: #3399cc;
+color: white;
+}
+.blue_line {
+background: #3399cc;
+height: 1px;
+width: 100%;
+border: none;
+}
+.blue {
+color: #3399cc;
+}
+.ten {
+font-size: 10px;
+}
+#wrapper {
+width: 360px;
+height: 220px;
+padding: 10px;
+}
+.text_block {
+width: 98%;
+height: 55px;
+border: 1px solid #3399cc;
+padding: 0 5px;
+margin-bottom: 12px;
+}
+button {
+width: 50px;
+height: 14px;
+margin-left: 19px;
+margin-top: 36px;
+background: #3399cc;
+border: none;
+font-size: 9px;
+color: white;
+}
+.inner_left, .inner_right {
+float: left;
+}
+.inner_left {
+width: 80%;
+font-size: 9px;
+}
