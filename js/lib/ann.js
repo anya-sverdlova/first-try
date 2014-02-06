@@ -6,26 +6,26 @@ ann.annObject = function(selector){
     // analize selector
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z]+/);
-    var classes = selector.match(/(\.[a-z1-9]+)g/);
+    var classes = selector.match(/(^[a-zA-Z]+)?(\.[a-z1-9]+)g/);
     var elementById = id;
-	var elementsByTagName = [];
+	var elementsByTagName = tag;
     var elementsByClassNames = [];
    
     var result = [];
     
 	if(id) { //If there is an id in selector
 	
-	elementById = document.getElementById(id.replace('#', ' ')); //Присвоить прототипу метод replace
-	
-	elementsById = result; 
+		elementById = document.getElementById(id.replace('#', ' ')); //Присвоить прототипу метод replace
+		
+		result.push(elementById);
 
 		}
 		
 	else if(tag) { //If there is an tagName in selector
 	
-		elementByTagName = document.getElementsByTagName(tag); 		
+		elementsByTagName = document.getElementsByTagName(tag); 	
 						
-		elementByTagName = result;
+		result.push(elementsByTagName);
 		
 		}
 	
@@ -38,7 +38,8 @@ ann.annObject = function(selector){
 			
 			elementsByClassNames.push(classes[i]);
 			
-			elementsByClassNames = result; 
+			result.push(elementsByClassNames);
+			
 			}
 		}
 		
@@ -48,30 +49,29 @@ ann.annObject = function(selector){
 		
 			elementsByClassNames = document.getElementsByClassName(classes[0].replace('.', ' '));
 									
-			elementsByClassNames = result;
+			result.push(elementsByClassNames);
+			
 			
 			}
 		}
 	
 			
-	if (elementByTagName && elementsByClassNames) { //If there are tag and some number of classes 
+	else if (elementsByTagName && elementsByClassNames) { //If there are tag and some number of classes 
 
 		if (elementsByClassNames[1]) { //If there are more then one class
 		
 			for ( var i = 0; i < elementsByClassNames.lehgtn; i++ ) {
 			
-				if( elementsByClassNames[i] && elementsByClassNames[i].tagName.toLowerCase() !== elementByTagName.toLowerCase())
+				if( elementsByClassNames[i] && elementsByClassNames[i].tagName.toLowerCase() !== elementsByTagName.toLowerCase())
                 continue;
                               
              result.push(elementsByClassNames[i]);
-		
+			
 			}
 		}
 	}
     	
-    this.domElements = result;
-	
-	return this.domElements;
+    this.domElements = result;		
 	
 }
 
@@ -79,8 +79,8 @@ ann.annObject.prototype = {
     
     getDomElements: function(){
         return this.domElements;
-    }
+    },
+		
 };
 
-
-console.log( ann('span') );
+console.log( ann('div') );
