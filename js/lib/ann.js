@@ -6,26 +6,26 @@ ann.annObject = function(selector){
     // analize selector
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z]+/);
-    var classes = selector.match(/(^[a-zA-Z]+)?(\.[a-z1-9]+)g/);
+    var classes = selector.match(/(\.[a-z1-9]+)g/);
     var elementById = id;
-	var elementsByTagName = tag;
+	var elementsByTagName = [];
     var elementsByClassNames = [];
    
     var result = [];
     
 	if(id) { //If there is an id in selector
 	
-		elementById = document.getElementById(id.replace('#', ' ')); //Присвоить прототипу метод replace
-		
-		result.push(elementById);
+	elementById = document.getElementById(id.replace('#', ' ')); //Присвоить прототипу метод replace
+	
+	elementsById = result; 
 
 		}
 		
 	else if(tag) { //If there is an tagName in selector
 	
-		elementsByTagName = document.getElementsByTagName(tag); 	
+		elementByTagName = document.getElementsByTagName(tag); 		
 						
-		result.push(elementsByTagName);
+		elementByTagName = result;
 		
 		}
 	
@@ -38,8 +38,7 @@ ann.annObject = function(selector){
 			
 			elementsByClassNames.push(classes[i]);
 			
-			result.push(elementsByClassNames);
-			
+			elementsByClassNames = result; 
 			}
 		}
 		
@@ -49,29 +48,30 @@ ann.annObject = function(selector){
 		
 			elementsByClassNames = document.getElementsByClassName(classes[0].replace('.', ' '));
 									
-			result.push(elementsByClassNames);
-			
+			elementsByClassNames = result;
 			
 			}
 		}
 	
 			
-	else if (elementsByTagName && elementsByClassNames) { //If there are tag and some number of classes 
+	if (elementByTagName && elementsByClassNames) { //If there are tag and some number of classes 
 
 		if (elementsByClassNames[1]) { //If there are more then one class
 		
 			for ( var i = 0; i < elementsByClassNames.lehgtn; i++ ) {
 			
-				if( elementsByClassNames[i] && elementsByClassNames[i].tagName.toLowerCase() !== elementsByTagName.toLowerCase())
+				if( elementsByClassNames[i] && elementsByClassNames[i].tagName.toLowerCase() !== elementByTagName.toLowerCase())
                 continue;
                               
              result.push(elementsByClassNames[i]);
-			
+		
 			}
 		}
 	}
     	
-    this.domElements = result;		
+    this.domElements = result;
+	
+	return this.domElements;
 	
 }
 
@@ -80,7 +80,35 @@ ann.annObject.prototype = {
     getDomElements: function(){
         return this.domElements;
     },
+	
+	getXml: function (url) {
+	
+		var request = new XMLHttpRequest();
 		
+		request.setRequestHeader ('Content-Type', 'text/xml');
+		
+		request.open('GET', url);
+		
+		request.onreadystatechange = function() { 
+
+			if (xhr.readyState != 4 && xhr.status != 200) {
+
+			alert('There is some mistake');
+
+			return;
+
+			}
+			
+		var answer = request.responseXML;
+		
+		return answer;
+
+		}
+		
+	request.send(null);
+
+	}
 };
 
-console.log( ann('div') );
+
+console.log( ann('span') );
