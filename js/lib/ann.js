@@ -6,7 +6,7 @@ ann.annObject = function(selector){
     // analize selector
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z]+/);
-    var classes = selector.match(/(\.[a-z1-9]+)g/);
+    var classes = selector.match(/(\.[a-z1-9]+)/g);
     var elementById = id;
 	var elementsByTagName = [];
     var elementsByClassNames = [];
@@ -25,7 +25,7 @@ ann.annObject = function(selector){
 	
 		elementByTagName = document.getElementsByTagName(tag); 		
 						
-		elementByTagName = result;
+		result = elementByTagName;
 		
 		}
 	
@@ -38,8 +38,9 @@ ann.annObject = function(selector){
 			
 			elementsByClassNames.push(classes[i]);
 			
-			elementsByClassNames = result; 
 			}
+
+			result = elementsByClassNames; 
 		}
 		
 	else if(!classes[1]){ //If there is only one class in selector
@@ -109,6 +110,3 @@ ann.annObject.prototype = {
 
 	}
 };
-
-
-console.log( ann('span') );
