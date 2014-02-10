@@ -6,7 +6,7 @@ ann.annObject = function(selector){
     // analize selector
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z]+/);
-    var classes = selector.match(/(\.[a-z1-9]+)/g);		
+    var classes = selector.match(/(\.[a-z1-9]+)/g);
     var elementById;
 	var elementByTagName;
     var elementsByClassNames;  
@@ -20,10 +20,11 @@ ann.annObject = function(selector){
 		result = elementById; 	
 	}
 	
+	
 	//If there is an tagName in selector
-	if(tag) { 	
+	if(tag) { 		
 		elementByTagName = document.getElementsByTagName(tag); 								
-		result = elementByTagName;		
+		result = elementByTagName;				
 	} 
 	
 	//If there is some classes at all - otherwise return mistake, because can't receive [1] from null
@@ -31,31 +32,25 @@ ann.annObject = function(selector){
 		//If there are more then one class in selector
 		if(classes[1]){ 	 
 			for ( var key in classes ) { 				
-				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));				
-				result.push(elementsByClassNames);
-				
+				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));					
+				result.push(elementsByClassNames);				
 			}			
 		} //If there is only one class in selector	
 		else { 	 						
 			elementsByClassNames = document.getElementsByClassName(classes[0].replace('.', ' ')); 										
 			result = elementsByClassNames;				
-		}	
-										
+		}									
     } 
 	
-	/*//If there are tag and some number of classes	--> эту часть кода нужно перенести до того момента, как проверяется тег, чтобы 
-	if (elementByTagName && elementsByClassNames) {  
-			
-			//If there are more then one class
-			if (elementsByClassNames[1]) { 			
-				for ( var i = 0; i < elementsByClassNames.lehgtn; i++ ) {				
-					if( elementsByClassNames[i] && elementsByClassNames[i].tagName.toLowerCase() 
-						!== elementByTagName.toLowerCase())
-					continue;								  
-				 result.push(elementsByClassNames[i]);			
-				}
-			}
-		} */
+	//If there are tag and one class	
+	if (elementByTagName && elementsByClassNames) {  							
+		for ( var key in elementsByClassNames ) 				
+			if (elementsByClassNames[key] instanceof Object &&	!(elementsByClassNames[key] instanceof Function)
+					&& elementsByClassNames[key].tagName.toLowerCase() === elementByTagName[0].tagName.toLowerCase() ) 
+				result = elementsByClassNames[key];					
+	}; 	
+		
+	
 		
     this.domElements = result;
 	

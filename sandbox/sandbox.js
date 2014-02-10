@@ -9,5 +9,9 @@ function startSandBox(){
 	byClass[0][0].innerHTML = 'rrr';
 	
 	var byId = ann('#someID');
-    console.log(byId);
+    console.log(byId); 
+	
+	var byTagPlusClass = ann('div.class1');
+	console.log(byTagPlusClass);
+	byTagPlusClass.innerHTML = 'green';
 }
