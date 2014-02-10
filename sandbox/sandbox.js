@@ -4,9 +4,9 @@ function startSandBox(){
     var byTag = ann('span');
     console.log(byTag);	
 
-    var byClass = ann('.class1');
+    var byClass = ann('.class1.class2');
     console.log(byClass);
-	byClass[0].innerHTML = 'rrr';
+	byClass[0][0].innerHTML = 'rrr';
 	
 	var byId = ann('#someID');
     console.log(byId);

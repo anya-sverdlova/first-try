@@ -6,34 +6,33 @@ ann.annObject = function(selector){
     // analize selector
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z]+/);
-    var classes = selector.match(/(\.[a-z1-9]+)/g);	
+    var classes = selector.match(/(\.[a-z1-9]+)/g);		
     var elementById;
 	var elementByTagName;
     var elementsByClassNames;  
     var result = [];
 	
     //If there is an id in selector
-	if(id) { 	
-	
+	if(id) { 		
 		//This part return "null" although id.toString().replace('#', ' ') return name of id in selector
 		var idName = id.toString().replace('#', ' '); // --> return correct id
 		elementById = document.getElementById(idName);	// --> return null (comments on the same line for convenience)		
 		result = elementById; 	
 	}
+	
 	//If there is an tagName in selector
 	if(tag) { 	
 		elementByTagName = document.getElementsByTagName(tag); 								
 		result = elementByTagName;		
-	}
+	} 
+	
 	//If there is some classes at all - otherwise return mistake, because can't receive [1] from null
-	if(classes) {
-				
+	if(classes) {		
 		//If there are more then one class in selector
 		if(classes[1]){ 	 
-			for ( var i = 0; i < classes.lehgtn; i++ ) { 
-				elementsByClassNames = document.getElementsByClassName(classes[i].replace('.', ' '));
-				
-				result.push(elementsByClassNames); 
+			for ( var key in classes ) { 				
+				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));				
+				result.push(elementsByClassNames);
 				
 			}			
 		} //If there is only one class in selector	
