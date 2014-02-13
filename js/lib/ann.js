@@ -11,7 +11,11 @@ ann.annObject = function(selector){
 	var elementByTagName;
     var elementsByClassNames;  
     var result = [];
+	var clasResult = [];
+	var tagResult = [];
+	var tagPlusClasResult = [];
 	
+	NodeList.prototype.push = Array.prototype.push;
     //If there is an id in selector
 	if(id) { 		
 		//This part return "null" although id.toString().replace('#', ' ') return name of id in selector
@@ -24,32 +28,46 @@ ann.annObject = function(selector){
 	//If there is an tagName in selector
 	if(tag) { 		
 		elementByTagName = document.getElementsByTagName(tag); 								
-		result = elementByTagName;				
+		tagResult.push(elementByTagName);
+		result = tagResult;
 	} 
 	
 	//If there is some classes at all - otherwise return mistake, because can't receive [1] from null
 	if(classes) {		
 		//If there are more then one class in selector
-		if(classes[1]){ 	 
-			for ( var key in classes ) { 				
+		if(classes[1]){  
+			for ( var key in classes ) { 		
 				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));					
-				result.push(elementsByClassNames);				
+				clasResult.push(elementsByClassNames); 
+				result = clasResult;
 			}			
 		} //If there is only one class in selector	
 		else { 	 						
 			elementsByClassNames = document.getElementsByClassName(classes[0].replace('.', ' ')); 										
-			result = elementsByClassNames;				
+			result = elementsByClassNames;							
 		}									
     } 
 	
 	//If there are tag and one class	
-	if (elementByTagName && elementsByClassNames) {  							
+	if (elementByTagName && elementsByClassNames && !classes[1]) {  
 		for ( var key in elementsByClassNames ) 				
 			if (elementsByClassNames[key] instanceof Object &&	!(elementsByClassNames[key] instanceof Function)
 					&& elementsByClassNames[key].tagName.toLowerCase() === elementByTagName[0].tagName.toLowerCase() ) 
-				result = elementsByClassNames[key];					
-	}; 	
+				result = elementsByClassNames[key];											
+	} 
+	
+	//If there are tag and more than one class
+	if (elementByTagName && elementsByClassNames && classes[1]) { 
+		for ( var key in classes ) { 		
+				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));	
+					for ( var key in elementsByClassNames ) 
+						if (elementsByClassNames[key] instanceof Object &&	!(elementsByClassNames[key] instanceof Function)
+								&& elementsByClassNames[key].tagName.toLowerCase() === elementByTagName[0].tagName.toLowerCase() ) 
+							tagPlusClasResult.push(elementsByClassNames[key]);	
+							result = tagPlusClasResult;
+						}	
 		
+	};
 	
 		
     this.domElements = result;

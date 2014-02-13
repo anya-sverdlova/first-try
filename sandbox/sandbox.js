@@ -2,7 +2,7 @@
 function startSandBox(){
 
     var byTag = ann('span');
-    console.log(byTag);	
+    console.log(byTag);
 
     var byClass = ann('.class1.class2');
     console.log(byClass);
@@ -14,4 +14,8 @@ function startSandBox(){
 	var byTagPlusClass = ann('div.class1');
 	console.log(byTagPlusClass);
 	byTagPlusClass.innerHTML = 'green';
+	
+	var byTagPlusClass2 = ann('span.class1.class2');
+	console.log(byTagPlusClass2);
+	
 }
