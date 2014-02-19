@@ -1,0 +1,21 @@
+ann(selector) -->
+
+if selector = id, return null
+
+if selector = tag, return DOM-elements with this tags
+
+if selector = class, return DOM-elements wits this class (as single NodeList)
+
+if selector = more than one class, return more than one NodeLists each with DOM-elements with this classes (NodeList in NodeList, I have an acces to elements using NodeList[0][0] for example)
+
+ISSUES
+
+1. Correct RegExp: make it find classes with "-" ang tags with numbers
+
+2. Try to get classes (if its in plural) in one NodeList, not in two different arrays
+ 
+3. Finish part with HTTPrequest
+
+Finish those part of code which get tag+class - DONE
+
+Finish part which will get tags with two different classes - DONE

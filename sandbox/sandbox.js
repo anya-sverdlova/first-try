@@ -4,9 +4,12 @@ function startSandBox(){
     var byTag = ann('span');
     console.log(byTag);
 
-    var byClass = ann('.class1.class2');
+	var byClass = ann('.class1');
     console.log(byClass);
-	byClass[0][0].innerHTML = 'rrr';
+	
+    var byClasses = ann('.class1.class2');
+    console.log(byClasses);
+	//byClasses[0][0].innerHTML = 'rrr';
 	
 	var byId = ann('#someID');
     console.log(byId); 
@@ -17,5 +20,7 @@ function startSandBox(){
 	
 	var byTagPlusClass2 = ann('span.class1.class2');
 	console.log(byTagPlusClass2);
+	
+	//var answer = ann.annObject.getRequest('index2.html');
 	
 }

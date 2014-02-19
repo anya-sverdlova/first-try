@@ -19,7 +19,7 @@ ann.annObject = function(selector){
     //If there is an id in selector
 	if(id) { 		
 		//This part return "null" although id.toString().replace('#', ' ') return name of id in selector
-		var idName = id.toString().replace('#', ' '); // --> return correct id
+		var idName = id.toString().replace('#', ''); // --> return correct id
 		elementById = document.getElementById(idName);	// --> return null (comments on the same line for convenience)		
 		result = elementById; 	
 	}
@@ -58,7 +58,7 @@ ann.annObject = function(selector){
 	
 	//If there are tag and more than one class
 	if (elementByTagName && elementsByClassNames && classes[1]) { 
-		for ( var key in classes ) { 		
+		for ( var key in classes ) { 	
 				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));	
 					for ( var key in elementsByClassNames ) 
 						if (elementsByClassNames[key] instanceof Object &&	!(elementsByClassNames[key] instanceof Function)
@@ -72,30 +72,21 @@ ann.annObject = function(selector){
 		
     this.domElements = result;
 	
-	return this.domElements;
 	
 };
 
-ann.annObject.prototype = {
-    
-    getDomElements: function(){
-        return this.domElements;
-    },
-	
-	getXml: function (url) {	
-		var request = new XMLHttpRequest();		
-		request.setRequestHeader ('Content-Type', 'text/xml');		
-		request.open('GET', url);		
-		request.onreadystatechange = function() { 
-
-			if (xhr.readyState != 4 && xhr.status != 200) {
+/*ann.annObject.getRequest = function (url) {	
+		var request = new XMLHttpRequest();						
+		request.open('GET', url);
+		request.setRequestHeader ('Content-Type', 'text/xml');	
+		request.onreadystatechange = function() { 		
+			if (request.readyState != 4 && request.status != 200) {
 			alert('There is some mistake');
 
 			return;
 
-			}
-			
-		var answer = request.responseXML;
+			}		
+		var answer = request.responseText;
 		
 		return answer;
 
@@ -103,5 +94,12 @@ ann.annObject.prototype = {
 		
 	request.send(null);
 
-	}
+	};*/
+
+ann.annObject.prototype = {
+    
+    getDomElements: function(){
+        return this.domElements;
+    }
+	
 };
