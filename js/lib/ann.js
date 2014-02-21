@@ -3,24 +3,22 @@
 };
 
 ann.annObject = function(selector){
-    // analize selector
+	// analize selector
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z]+/);
-    var classes = selector.match(/(\.[a-z1-9]+)/g);
-    var elementById;
+	var classes = selector.match(/(\.[a-z1-9]+)/g);
+	var elementById;
 	var elementByTagName;
-    var elementsByClassNames;  
-    var result = [];
+	var elementsByClassNames;  
+	var result = [];
 	var clasResult = [];
 	var tagResult = [];
 	var tagPlusClasResult = [];
 	
 	NodeList.prototype.push = Array.prototype.push;
-    //If there is an id in selector
-	if(id) { 		
-		//This part return "null" although id.toString().replace('#', ' ') return name of id in selector
-		var idName = id.toString().replace('#', ''); // --> return correct id
-		elementById = document.getElementById(idName);	// --> return null (comments on the same line for convenience)		
+	//If there is an id in selector
+	if(id) { 						
+		elementById = document.getElementById(id.toString().replace('#', ''));		
 		result = elementById; 	
 	}
 	
@@ -32,48 +30,62 @@ ann.annObject = function(selector){
 		result = tagResult;
 	} 
 	
-	//If there is some classes at all - otherwise return mistake, because can't receive [1] from null
+	//If there is some classes 
 	if(classes) {		
-		//If there are more then one class in selector
-		if(classes[1]){  
-			for ( var key in classes ) { 		
-				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));					
-				clasResult.push(elementsByClassNames); 
-				result = clasResult;
-			}			
-		} //If there is only one class in selector	
-		else { 	 						
-			elementsByClassNames = document.getElementsByClassName(classes[0].replace('.', ' ')); 										
-			result = elementsByClassNames;							
-		}									
+		elementsByClassNames = document.getElementsByClassName(classes.join('').replace(/\./g, ' ')); 
+		result = elementsByClassNames;								
     } 
 	
 	//If there are tag and one class	
-	if (elementByTagName && elementsByClassNames && !classes[1]) {  
+	if (elementByTagName && elementsByClassNames) { 
 		for ( var key in elementsByClassNames ) 				
-			if (elementsByClassNames[key] instanceof Object &&	!(elementsByClassNames[key] instanceof Function)
+			if (elementsByClassNames[key] instanceof Object && !(elementsByClassNames[key] instanceof Function)
 					&& elementsByClassNames[key].tagName.toLowerCase() === elementByTagName[0].tagName.toLowerCase() ) 
 				result = elementsByClassNames[key];											
-	} 
-	
-	//If there are tag and more than one class
-	if (elementByTagName && elementsByClassNames && classes[1]) { 
-		for ( var key in classes ) { 	
-				elementsByClassNames = document.getElementsByClassName(classes[key].replace('.', ' '));	
-					for ( var key in elementsByClassNames ) 
-						if (elementsByClassNames[key] instanceof Object &&	!(elementsByClassNames[key] instanceof Function)
-								&& elementsByClassNames[key].tagName.toLowerCase() === elementByTagName[0].tagName.toLowerCase() ) 
-							tagPlusClasResult.push(elementsByClassNames[key]);	
-							result = tagPlusClasResult;
-						}	
-		
 	};
+		
 	
 		
-    this.domElements = result;
+	this.domElements = result;
 	
 	
 };
+
+
+
+requestParams = {
+    method : "GET",
+    url    : "https://mongolab.com/databases/first-base",
+    body   : null
+}
+
+function errorCallback() { 
+	alert('There is some mistake');
+	};
+	
+function callback(answ) {
+	console.log(answ);
+	};
+
+ann.httpRequest = function (requestParams, callback, errorCallback) {	
+		var request = new XMLHttpRequest();						
+		request.open(requestParams.method, requestParams.url);
+		request.setRequestHeader ('Content-Type', 'text/xml');	
+		request.onreadystatechange = function() { 		
+			if (request.readyState != 4 && request.status != 200) {
+			errorCallback();
+
+			return;
+
+			}		
+		var answer = request.responseText;
+		callback(answer);		
+
+		}
+		
+	request.send(requestParams.body);
+
+	};
 
 /*ann.annObject.getRequest = function (url) {	
 		var request = new XMLHttpRequest();						
@@ -98,8 +110,8 @@ ann.annObject = function(selector){
 
 ann.annObject.prototype = {
     
-    getDomElements: function(){
-        return this.domElements;
-    }
+	getDomElements: function(){
+		return this.domElements;
+	}
 	
 };
