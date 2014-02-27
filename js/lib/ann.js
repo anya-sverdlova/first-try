@@ -60,7 +60,7 @@ requestParams = {
 ann.httpRequest = function (requestParams, callback, errorCallback) {	
 		var request = new XMLHttpRequest();						
 		request.open(requestParams.method, requestParams.url);
-		request.setRequestHeader ('Content-Type', 'text/xml');	
+		request.setRequestHeader ('Content-Type', 'application/json');	
 		request.onreadystatechange = function() { 		
 			if (request.readyState != 4 && request.status != 200) {
 			errorCallback();

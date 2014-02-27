@@ -28,13 +28,18 @@ function startSandBox(){
     body   : null
 }, function(data){console.log(data);}, function(error){console.log('error');});
 
-	ann.httpRequest({
+	/*ann.httpRequest({
     method : "POST",
     url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
-    body   : ({
+    body   : JSON.stringify({
         message : "just text",
         author : "Anna"		
     })
-}, function(data){console.log(data);}, function(error){console.log('error');});
+}, function(data){console.log(data);}, function(error){console.log('error');});*/
 
+ann.httpRequest({
+    method : "GET",
+    url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
+    body   : null
+}, function(data){ var dataObj = JSON.parse(data); console.log(dataObj[0].message);}, function(error){console.log('error');});
 }
