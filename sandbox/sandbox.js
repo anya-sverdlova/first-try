@@ -22,6 +22,19 @@ function startSandBox(){
 	var byTagPlusClass2 = ann('span.class1.class3');
 	console.log(byTagPlusClass2);
 	
-	//var answer = ann.annObject.getRequest('index2.html');
-	//ann.httpRequest(requestParams, callback, errorCallback);
+	ann.httpRequest({
+    method : "GET",
+    url    : "https://api.mongolab.com/api/1/databases?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ",
+    body   : null
+}, function(data){console.log(data);}, function(error){console.log('error');});
+
+	ann.httpRequest({
+    method : "POST",
+    url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
+    body   : ({
+        message : "just text",
+        author : "Anna"		
+    })
+}, function(data){console.log(data);}, function(error){console.log('error');});
+
 }
