@@ -67,9 +67,9 @@ ann.httpRequest = function (requestParams, callback, errorCallback) {
 
 			return;
 
-			}		
-		var answer = request.responseText;
-		callback(answer);		
+			}else if (request.readyState == 4 && request.status == 200){	
+		
+		callback(request.responseText);		}
 
 		}
 		
