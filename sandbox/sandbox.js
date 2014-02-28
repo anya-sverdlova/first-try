@@ -9,37 +9,31 @@ function startSandBox(){
 	
 	var byClasses = ann('.class1.class3');
 	console.log(byClasses);
-	byClasses.domElements[0].innerHTML = 'rrr';
 	
 	var byId = ann('#someID');
 	console.log(byId); 
 	
 	var byTagPlusClass = ann('span.class1');
 	console.log(byTagPlusClass);
-	byTagPlusClass.domElements[0].innerHTML = 'red';
-	byTagPlusClass.domElements[1].innerHTML = 'not red';
 	
 	var byTagPlusClass2 = ann('span.class1.class3');
 	console.log(byTagPlusClass2);
 	
-	ann.httpRequest({
-    method : "GET",
-    url    : "https://api.mongolab.com/api/1/databases?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ",
-    body   : null
-}, function(data){console.log(data);}, function(error){console.log('error');});
-
 	/*ann.httpRequest({
-    method : "POST",
-    url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
-    body   : JSON.stringify({
-        message : "just text",
-        author : "Anna"		
-    })
+	method : "POST",
+	url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
+	body   : JSON.stringify({
+		message : "just text",
+	author : "Anna"		
+	})
 }, function(data){console.log(data);}, function(error){console.log('error');});*/
 
-ann.httpRequest({
-    method : "GET",
-    url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
-    body   : null
-}, function(data){console.log(JSON.parse(data)[0]);}, function(error){console.log("error");});
+/*ann.httpRequest({
+	method : "GET",
+	url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
+	body   : null
+}, function(data){console.log(JSON.parse(data)[0].message);}, function(error){console.log("error");});
+}*/
+
+ann('span.class1.class3').load("https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ");
 }

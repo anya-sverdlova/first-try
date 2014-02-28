@@ -1,5 +1,5 @@
 ﻿var ann = function(selector){
-    return new ann.annObject(selector); 
+	return new ann.annObject(selector); 
 };
 
 ann.annObject = function(selector){
@@ -48,40 +48,35 @@ ann.annObject = function(selector){
 	
 };
 
-
-
-requestParams = {
-    method : "GET",
-    url    : "https://mongolab.com/databases/first-base",
-    body   : null
-}
-
-
 ann.httpRequest = function (requestParams, callback, errorCallback) {	
 		var request = new XMLHttpRequest();						
 		request.open(requestParams.method, requestParams.url);
 		request.setRequestHeader ('Content-Type', 'application/json');	
 		request.onreadystatechange = function() { 		
 			if (request.readyState != 4 && request.status != 200) {
-			errorCallback();
-
-			return;
-
+				errorCallback();		
 			}else if (request.readyState == 4 && request.status == 200){	
-		
-		callback(request.responseText);		}
-
+				callback(request.responseText);					
+			}
 		}
 		
 	request.send(requestParams.body);
-
+		
 	};
-
-
+	
 ann.annObject.prototype = {
-    
+
 	getDomElements: function(){
 		return this.domElements;
-	}
+	},
 	
+	load: function(myURL) {	
+		var target = this.domElements;
+		var data;
+		return new ann.httpRequest({
+			method: "GET",
+			url    : myURL, 
+			body   : null,			
+		}, function(data){ target.innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message; }, function(error){console.log("error");});
+	}
 };
