@@ -48,6 +48,43 @@ ann.annObject = function(selector){
 	
 };
 
+/*
+requestParams = {
+
+
+https://developer.mozilla.org/en-US/docs/JSON
+
+http://docs.mongolab.com/restapi
+
+
+
+    // optional
+    timeout : <int>,
+    dataType : <string>
+    contentType : <styring>
+    
+
+
+
+
+    method : "GET",
+    url    : "https://mongolab.com/databases/first-base",
+    body   : null
+    
+    
+    
+}
+
+*/
+
+/*
+
+
+ann('.content').load("https://api.mongolab.com/api/1/databases?apiKey=kVqy3EOg1H3TRamzl3Vs1tUxyo0k1IBc");
+
+*/
+
+
 ann.httpRequest = function (requestParams, callback, errorCallback) {	
 		var request = new XMLHttpRequest();						
 		request.open(requestParams.method, requestParams.url);
@@ -77,6 +114,13 @@ ann.annObject.prototype = {
 			method: "GET",
 			url    : myURL, 
 			body   : null,			
-		}, function(data){ target.innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message; }, function(error){console.log("error");});
-	}
+		}, function(data){ 
+			if (target[1]) {
+				for (var key in target) {
+					target[key].innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message;
+				}
+			}else{
+			target.innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message; 
+			}}, function(error){console.log("error");});
+	}			
 };

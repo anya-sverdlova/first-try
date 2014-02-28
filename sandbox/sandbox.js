@@ -28,12 +28,11 @@ function startSandBox(){
 	})
 }, function(data){console.log(data);}, function(error){console.log('error');});*/
 
-/*ann.httpRequest({
+ann.httpRequest({
 	method : "GET",
 	url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
 	body   : null
 }, function(data){console.log(JSON.parse(data)[0].message);}, function(error){console.log("error");});
-}*/
 
-ann('span.class1.class3').load("https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ");
+ann('span').load("https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ");
 }
