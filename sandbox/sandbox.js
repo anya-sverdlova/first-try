@@ -34,5 +34,5 @@ ann.httpRequest({
 	body   : null
 }, function(data){console.log(JSON.parse(data)[0].message);}, function(error){console.log("error");});
 
-ann('span').load("https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ");
+ann('span.class1.class3').load("https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ");
 }
