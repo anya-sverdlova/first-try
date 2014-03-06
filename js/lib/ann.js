@@ -3,7 +3,6 @@
 };
 
 ann.annObject = function(selector){
-	// analize selector
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z1-9]+/);
 	var classes = selector.match(/(\.[a-z1-9\-]+)/g);
@@ -48,50 +47,29 @@ ann.annObject = function(selector){
 	
 };
 
-/*
-requestParams = {
-
-
-https://developer.mozilla.org/en-US/docs/JSON
-
-http://docs.mongolab.com/restapi
-
-
-
-    // optional
-    timeout : <int>,
-    dataType : <string>
-    contentType : <styring>
-    
-
-
-
-
-    method : "GET",
-    url    : "https://mongolab.com/databases/first-base",
-    body   : null
-    
-    
-    
-}
-
-*/
-
 ann.httpRequest = function (requestParams, callback, errorCallback) {	
-		var request = new XMLHttpRequest();						
-		request.open(requestParams.method, requestParams.url);
-		request.setRequestHeader ('Content-Type', 'application/json');	
-		request.onreadystatechange = function() { 		
-			if (request.readyState != 4 && request.status != 200) {
-				errorCallback();		
-			}else if (request.readyState == 4 && request.status == 200){	
-				callback(request.responseText);					
-			}
+	var request = new XMLHttpRequest();						
+	request.open(requestParams.method, requestParams.url);
+	request.setRequestHeader ('Content-Type', 'application/json');	
+	request.onreadystatechange = function() { 		
+		if (request.readyState === 4 && request.status != 200) {
+			errorCallback(request, "bad response");
+			if(requestParams.timeout) clearTimeout(timeout);			
+		}else if (request.readyState == 4 && request.status == 200){	
+			callback(request.responseText);
+			if(requestParams.timeout) clearTimeout(timeout);
 		}
-		
+	}
+	
+	if(requestParams.timeout){
+		var timeout = setTimeout(function(){
+			request.abort();
+			errorCallback(request, "time-out error");
+		}, requestParams.timeout);
+	}
+	
 	request.send(requestParams.body);
-		
-	};
+};
 	
 ann.annObject.prototype = {
 
@@ -99,18 +77,23 @@ ann.annObject.prototype = {
 		return this.domElements;
 	},
 	
-	load: function(myURL) {	
+	load: function(myURL, myDelay) {	
 		var target = this.domElements;
-		var data;
+		var data;		
 		return new ann.httpRequest({
 			method: "GET",
 			url    : myURL, 
-			body   : null,			
-		}, function(data){ 			
-				for (var key in target) { 					
-					if (!(target[key] instanceof Function) && isNaN(target[key])) { 
-					target[key].innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message; 					
-					}				
-			}}, function(error){console.log("error");});
+			body   : null,
+			timeout : myDelay
+		}, function(data){ 								
+			for (var key in target) { 					
+				if (!(target[key] instanceof Function) && isNaN(target[key])) { 						
+				target[key].innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message; 
+				
+				}
+			}
+		}, function(xhr, message){
+			if(target[0]) target[0].innerHTML = message;
+		});
 	}			
 };
