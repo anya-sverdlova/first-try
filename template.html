@@ -32,13 +32,23 @@
   };
 })();
 </script>
-<!--<script type="text/template" id="result">	
-	<%=<div class="text_block_1">
-		<div class="inner_left_1"><span class="ten">From <span class="blue">date</span></span><br>		
-		</div>		
-		<div class="inner_right"><button>Comment</button></div>	
-	</div>%>
-</script>-->
+<script type="text/template" id="result">		
+			<%  for (var i = 0; i < count ; i++) {
+				var textBlock = document.createElement('div');
+				textBlock.className = 'text_block';												
+				var innerLeft = document.createElement('div');
+				innerLeft.innerHTML = myName;
+				innerLeft.className = 'inner_left';
+				textBlock.appendChild(innerLeft);
+				var innerRight = document.createElement('div');					
+				innerRight.className = 'inner_right';
+				innerRight.innerHTML = myButton;
+				textBlock.appendChild(innerRight);				
+				myElement.appendChild(textBlock);
+				}
+			%>				
+	</div>	
+</script>
 
 </head>
 <body>
@@ -58,11 +68,13 @@
 	</div>
 </div>
 <script>
-	var myElement = ann('#wrapper').domElements;
-	var data = { count: 3 };
-	var innerDiv = document.createElement('div');
-	innerDiv.innerHTML = 'kkk';
-	myElement.appendChild(innerDiv);	
+	var data = { count: 3, myName: 'anna', myElement: ann('#wrapper').domElements, myButton: '<button onclick="getText();">Comment</button>' };
+	var smth = tmpl('result', data);
+</script>
+<script>
+	function getText() { 
+	ann('.inner_left').load('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ'); 	
+	}
 </script>
 </body>
 </html>
