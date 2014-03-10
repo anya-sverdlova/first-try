@@ -77,23 +77,51 @@ ann.annObject.prototype = {
 		return this.domElements;
 	},
 	
-	load: function(myURL, myDelay) {	
+	load: function(myURL, myDelay, whatWeNeed) {	
 		var target = this.domElements;
 		var data;		
 		return new ann.httpRequest({
 			method: "GET",
 			url    : myURL, 
 			body   : null,
-			timeout : myDelay
-		}, function(data){ 								
-			for (var key in target) { 					
-				if (!(target[key] instanceof Function) && isNaN(target[key])) { 						
-				target[key].innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message; 
-				
+			timeout : myDelay,
+			result: whatWeNeed
+		}, function(data){ 					
+			for (var key in target) { 				
+				if (!(target[key] instanceof Function) && isNaN(target[key])) {
+				if (whatWeNeed) { alert('gggg');
+					target[key].innerHTML = JSON.parse(data)[1].whatWeNeed; }else{
+				target[key].innerHTML = JSON.parse(data)[1].author + ':' + JSON.parse(data)[1].message; 				
 				}
 			}
-		}, function(xhr, message){
+		} }, function(xhr, message){
 			if(target[0]) target[0].innerHTML = message;
 		});
 	}			
 };
+//not mine
+window.onload = (function(){
+  var cache = {};
+  
+  this.tmpl = function tmpl(str, data){
+    var fn = !/\W/.test(str) ?
+      cache[str] = cache[str] ||
+        tmpl(document.getElementById(str).innerHTML) :
+      
+      new Function("obj",
+        "var p=[],print=function(){p.push.apply(p,arguments);};" +             
+        "with(obj){p.push('" +
+
+        str
+          .replace(/[\r\t\n]/g, " ")
+          .split("<%").join("\t")
+          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+          .replace(/\t=(.*?)%>/g, "',$1,'")
+          .split("\t").join("');")
+          .split("%>").join("p.push('")
+          .split("\r").join("\\'")
+      + "');}return p.join('');");
+
+    return data ? fn( data ) : fn;
+  };
+})();
