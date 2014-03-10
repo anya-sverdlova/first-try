@@ -5,7 +5,7 @@
 ann.annObject = function(selector){
 	var id = selector.match(/^#[a-zA-Z]+/);
 	var tag = selector.match(/^[a-zA-Z1-9]+/);
-	var classes = selector.match(/(\.[a-z1-9\-]+)/g);
+	var classes = selector.match(/(\.[a-z1-9\-\_]+)/g);
 	var elementById;
 	var elementByTagName;
 	var elementsByClassNames;  
