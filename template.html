@@ -32,49 +32,27 @@
   };
 })();
 </script>
-<script type="text/template" id="result">		
-			<%  for (var i = 0; i < count ; i++) {
-				var textBlock = document.createElement('div');
-				textBlock.className = 'text_block';												
-				var innerLeft = document.createElement('div');
-				innerLeft.innerHTML = myName;
-				innerLeft.className = 'inner_left';
-				textBlock.appendChild(innerLeft);
-				var innerRight = document.createElement('div');					
-				innerRight.className = 'inner_right';
-				innerRight.innerHTML = <%=<button onclick="getText();">Comment</button>%>;
-				textBlock.appendChild(innerRight);				
-				myElement.appendChild(textBlock);
-				}
-			%>				
+<script type="text/template" id="result">
+	<% for ( var i = 0; i < count; i++ ) { %>
+	<div class="text_block_1">
+		<div class="inner_left"><span class="ten">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
+		<p class="text-feedback"><%ann('.text-feedback').load('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ');%> <p></div>
+		<div class="inner_right"><%=myButton%></div>
 	</div>	
+	<% }; %>
 </script>
 
 </head>
 <body>
 <div id="cover">		
-	<div class="page_title">Page title</div>
-	<div class="settings">Settings</div>
-	<div class="close">x</div>
-	<div id="cleaner"></div>
-	<div class="rating">Rating:</div>
-	<div class="stars"><img src="media/star.png"><img src="media/star.png"><img src="media/star.png"><img src="media/star.png"><img src="media/star.png"></div>
-	<div id="cleaner"></div>
-	<div class="reviews">Reviews</div>
-	<div class="add_rev">Add reviews</div>
-	<hr noshade class="blue_line">
 	<div id="wrapper">
 		
 	</div>
 </div>
 <script>
-	var data = { count: 3, myName: 'anna', myElement: ann('#wrapper').domElements, myButton: '<button onclick="getText();">Comment</button>' };
-	var smth = tmpl('result', data);
-</script>
-<script>
-	function getText() { 
-	ann('.inner_left').load('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ'); 	
-	}
+	var data = { count: 3, myFeedback: 'anna', myButton: '<button>Comment</button>' };
+	var myElement = ann('#wrapper').domElements;
+	myElement.innerHTML = tmpl('result', data);
 </script>
 </body>
 </html>
