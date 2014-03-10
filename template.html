@@ -32,15 +32,13 @@
   };
 })();
 </script>
-<script type="text/template" id="result">
-<% for (var i=1; i<=count; i++) { %>	
-	<%= <div class="text_block_1">
+<!--<script type="text/template" id="result">	
+	<%=<div class="text_block_1">
 		<div class="inner_left_1"><span class="ten">From <span class="blue">date</span></span><br>		
 		</div>		
 		<div class="inner_right"><button>Comment</button></div>	
-	</div> %>
-<% } %>
-</script>
+	</div>%>
+</script>-->
 
 </head>
 <body>
@@ -60,9 +58,11 @@
 	</div>
 </div>
 <script>
-	var myElement = ann('#wrapper');	
+	var myElement = ann('#wrapper').domElements;
 	var data = { count: 3 };
-	myElement.innerHTML = tmpl("result", data);
+	var innerDiv = document.createElement('div');
+	innerDiv.innerHTML = 'kkk';
+	myElement.appendChild(innerDiv);	
 </script>
 </body>
 </html>
