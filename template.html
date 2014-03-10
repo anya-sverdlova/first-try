@@ -6,53 +6,63 @@
 <link rel="stylesheet" href="css/stylesheet_testwork.css">
 <script type="text/javascript" src="js/lib/ann.js"></script>
 <script>
-	window.onload = (function(){
-  var cache = {};
-  
-  this.tmpl = function tmpl(str, data){
-    var fn = !/\W/.test(str) ?
-      cache[str] = cache[str] ||
-        tmpl(document.getElementById(str).innerHTML) :
-      
-      new Function("obj",
-        "var p=[],print=function(){p.push.apply(p,arguments);};" +             
-        "with(obj){p.push('" +
-
-        str
-          .replace(/[\r\t\n]/g, " ")
-          .split("<%").join("\t")
-          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-          .replace(/\t=(.*?)%>/g, "',$1,'")
-          .split("\t").join("');")
-          .split("%>").join("p.push('")
-          .split("\r").join("\\'")
-      + "');}return p.join('');");
-
-    return data ? fn( data ) : fn;
-  };
-})();
+	
 </script>
 <script type="text/template" id="result">
+	<div class="page_title">Page title</div>
+	<div class="settings">Settings</div>
+	<div class="close">x</div>
+	<div id="cleaner"></div>
+	<div class="rating">Rating:</div>
+	<div class="stars">
+	<% for (var i = 0; i <= starCount; i++) { %>	
+	<img src="media/star.png">
+	<% }; %> 
+	</div>
+	<div id="cleaner"></div>
+	<div class="reviews">Reviews</div>
+	<div class="add_rev">Add reviews</div>
+	<hr noshade class="blue_line">
+	<div id="wrapper">	
 	<% for ( var i = 0; i < count; i++ ) { %>
 	<div class="text_block_1">
 		<div class="inner_left"><span class="ten">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
-		<p class="text-feedback"><%ann('.text-feedback').load('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ');%> <p></div>
+		<p class="text-feedback">
+		<%ann('.text-feedback').load('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ'); %> <p></div>
 		<div class="inner_right"><%=myButton%></div>
 	</div>	
 	<% }; %>
+	</div>
 </script>
-
+<style>
+#startButton {
+	width: 200px;
+	height: 50px;
+	position: absolute;
+	left: 50%;
+	margin-left: -100px;
+	top: 100%;
+	margin-top: -50px;
+	border: 2px solid white;
+	color: white;
+	font-size: 20px;
+	}
+</style>
 </head>
 <body>
-<div id="cover">		
-	<div id="wrapper">
-		
-	</div>
-</div>
+	
+<button id="startButton" onclick="getAll()">Get reviews</button>
 <script>
-	var data = { count: 3, myFeedback: 'anna', myButton: '<button>Comment</button>' };
-	var myElement = ann('#wrapper').domElements;
+	function getAll() {
+	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5,  };
+	var myButton = ann('#startButton').domElements;
+	myButton.style.display = 'none';	
+	var myElement = document.createElement('div');
+	myElement.id = "cover"; 
 	myElement.innerHTML = tmpl('result', data);
+	var parent = document.body;
+	parent.appendChild(myElement);
+	};
 </script>
 </body>
 </html>
