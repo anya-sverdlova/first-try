@@ -47,6 +47,30 @@ ann.annObject = function(selector){
 	
 };
 
+
+ann.tmpl = function tmpl(str, data){
+  var cache = {};
+    var fn = !/\W/.test(str) ?
+      cache[str] = cache[str] ||
+        ann.tmpl(document.getElementById(str).innerHTML) :
+      
+      new Function("obj",
+        "var p=[],print=function(){p.push.apply(p,arguments);};" +             
+        "with(obj){p.push('" +
+
+        str
+          .replace(/[\r\t\n]/g, " ")
+          .split("<%").join("\t")
+          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+          .replace(/\t=(.*?)%>/g, "',$1,'")
+          .split("\t").join("');")
+          .split("%>").join("p.push('")
+          .split("\r").join("\\'")
+      + "');}return p.join('');");
+
+    return data ? fn( data ) : fn;
+  };
+  
 ann.httpRequest = function (requestParams, callback, errorCallback) {	
 	var request = new XMLHttpRequest();						
 	request.open(requestParams.method, requestParams.url);
@@ -97,31 +121,35 @@ ann.annObject.prototype = {
 		} }, function(xhr, message){
 			if(target[0]) target[0].innerHTML = message;
 		});
-	}			
+	},
+
+	display: function (selector) {		
+		this.domElements.style.display = selector; 
+	}, 
+	
+	newElement: function (child) {
+		var newParent = this.domElements; 
+		var newChild;		
+		if(!!newParent[0]) { 		
+			for (var i = 0; i < newParent.length; i++) { 
+			newChild = document.createElement(child); 
+			newParent[i].appendChild(newChild); 			
+				} 			
+			}else{ 
+			newChild = document.createElement(child); 
+			newParent.appendChild(newChild); 
+			}
+		return newChild;
+		},
+		
+	inside: function (content) {
+		if (!content) {
+			content = 'null';
+			}
+		if(!!this.domElements[0]) {
+			for (var i = 0; i < this.domElements.length; i++)
+			this.domElements[i].innerHTML = content;
+			}else{	
+		this.domElements.innerHTML = content; }
+		}
 };
-//not mine
-window.onload = (function(){
-  var cache = {};
-  
-  this.tmpl = function tmpl(str, data){
-    var fn = !/\W/.test(str) ?
-      cache[str] = cache[str] ||
-        tmpl(document.getElementById(str).innerHTML) :
-      
-      new Function("obj",
-        "var p=[],print=function(){p.push.apply(p,arguments);};" +             
-        "with(obj){p.push('" +
-
-        str
-          .replace(/[\r\t\n]/g, " ")
-          .split("<%").join("\t")
-          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-          .replace(/\t=(.*?)%>/g, "',$1,'")
-          .split("\t").join("');")
-          .split("%>").join("p.push('")
-          .split("\r").join("\\'")
-      + "');}return p.join('');");
-
-    return data ? fn( data ) : fn;
-  };
-})();

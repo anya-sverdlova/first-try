@@ -55,13 +55,9 @@
 <script>
 	function getAll() {
 	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5,  };
-	var myButton = ann('#startButton').domElements;
-	myButton.style.display = 'none';	
-	var myElement = document.createElement('div');
-	myElement.id = "cover"; 
-	myElement.innerHTML = tmpl('result', data);
-	var parent = document.body;
-	parent.appendChild(myElement);
+	ann('#startButton').display('none');
+	ann('body').newElement('div').id = 'cover';
+	ann('#cover').inside(ann.tmpl('result', data));
 	};
 </script>
 </body>
