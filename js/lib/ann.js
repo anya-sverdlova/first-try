@@ -71,10 +71,10 @@ ann.tmpl = function tmpl(str, data){
     return data ? fn( data ) : fn;
   };
   
-ann.httpRequest = function (requestParams, callback, errorCallback) {	
-	var request = new XMLHttpRequest();						
+ann.httpRequest = function (requestParams, myHeaders, callback, errorCallback) {	
+	var request = new XMLHttpRequest();	
 	request.open(requestParams.method, requestParams.url);
-	request.setRequestHeader ('Content-Type', 'application/json');	
+	request.setRequestHeader ('Content-Type', myHeaders);	
 	request.onreadystatechange = function() { 		
 		if (request.readyState === 4 && request.status != 200) {
 			errorCallback(request, "bad response");
@@ -101,22 +101,18 @@ ann.annObject.prototype = {
 		return this.domElements;
 	},
 	
-	load: function(myURL, myDelay, whatWeNeed) {	
+	load: function(myURL, myDelay) {	
 		var target = this.domElements;
 		var data;		
 		return new ann.httpRequest({
 			method: "GET",
 			url    : myURL, 
 			body   : null,
-			timeout : myDelay,
-			result: whatWeNeed
-		}, function(data){ 					
+			timeout : myDelay			
+		}, 'application/json' , function(data){ 					
 			for (var key in target) { 				
-				if (!(target[key] instanceof Function) && isNaN(target[key])) {
-				if (whatWeNeed) { alert('gggg');
-					target[key].innerHTML = JSON.parse(data)[1].whatWeNeed; }else{
-				target[key].innerHTML = JSON.parse(data)[1].author + ':' + JSON.parse(data)[1].message; 				
-				}
+				if (!(target[key] instanceof Function) && isNaN(target[key])) {				
+				target[key].innerHTML = JSON.parse(data)[1].author + ':' + JSON.parse(data)[1].message; 								
 			}
 		} }, function(xhr, message){
 			if(target[0]) target[0].innerHTML = message;
@@ -133,7 +129,7 @@ ann.annObject.prototype = {
 		if(!!newParent[0]) { 		
 			for (var i = 0; i < newParent.length; i++) { 
 			newChild = document.createElement(child); 
-			newParent[i].appendChild(newChild); 			
+			newParent[i].appendChild(newChild); 
 				} 			
 			}else{ 
 			newChild = document.createElement(child); 
@@ -144,7 +140,8 @@ ann.annObject.prototype = {
 		
 	inside: function (content) {
 		if (!content) {
-			content = 'null';
+			content = this.domElements.innerHTML;
+			return content;
 			}
 		if(!!this.domElements[0]) {
 			for (var i = 0; i < this.domElements.length; i++)
@@ -153,3 +150,5 @@ ann.annObject.prototype = {
 		this.domElements.innerHTML = content; }
 		}
 };
+
+
