@@ -23,8 +23,8 @@ function startSandBox(){
 	method : "POST",
 	url    : "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ", 
 	body   : JSON.stringify({
-		message : "just text",
-	author : "Anna"		
+		message : "not so simle text, it's a text with much more letters then previous",
+	author : "Yana"		
 	})
 }, function(data){console.log(data);}, function(error){console.log('error');});*/
 
