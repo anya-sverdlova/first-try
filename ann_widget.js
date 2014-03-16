@@ -1,4 +1,4 @@
-onload = function ann_widget(widgetParams) {
+function ann_widget(widgetParams) {
 
 	// not used yet
 	var widgetParams = {
