@@ -11,8 +11,9 @@ function ann_widget(widgetParams) {
 	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	script.onload = function() {
+		console.log('fffff');
 	//create new element for ann.js
-	var myParent = document.getElementsByTagName('head')[0];	
+	/*var myParent = document.getElementsByTagName('head')[0];	
 	var newScript = document.createElement('script');
 	newScript.type = "text/javascript";
 	newScript.src = "js/lib/ann.js";
@@ -33,12 +34,12 @@ function ann_widget(widgetParams) {
 	myParent.appendChild(newCss);
 	
 	//and this part of code doesn't work because 'ann not defined'
-	/*ann('body').newElement('button').id = 'startButton';
+	ann('body').newElement('button').id = 'startButton';
 	ann("#startButton").domElements.onclick = function()  { 
 	ann('#startButton').display('none');
 	console.log(ann('#result'));
-	};*/
 	};
+	};*/
 };
 	
 		
