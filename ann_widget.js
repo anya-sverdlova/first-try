@@ -10,6 +10,7 @@ function ann_widget(widgetParams) {
 	//data for ann.tmpl
 	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
 	
+	script.onload = function() {
 	//create new element for ann.js
 	var myParent = document.getElementsByTagName('head')[0];	
 	var newScript = document.createElement('script');
@@ -36,7 +37,8 @@ function ann_widget(widgetParams) {
 	ann("#startButton").domElements.onclick = function()  { 
 	ann('#startButton').display('none');
 	console.log(ann('#result'));
-	};*/	
+	};*/
+	};
 };
 	
 		
