@@ -1,21 +1,11 @@
+
 	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
-	
-	var url = 'https://rawgithub.com/anya-sverdlova/first-try/widget/ann_widget.js';
-	var head = document.getElementsByTagName("head")[0];
-	var script = document.createElement('script');
-	script.type='text/javascript';
-	script.src=url;	
-	head.appendChild(script);
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	var newScript = document.createElement('script');
 	newScript.type = "text/javascript";
 	newScript.src = "https://rawgithub.com/anya-sverdlova/first-try/widget/js/lib/ann.js";
-	myParent.appendChild(newScript);
-	
-	newScript.onload = function()  {
-		console.log('script loaded');
-	}
+	myParent.appendChild(newScript);	
 	
 	var newCss = document.createElement('link');
 	newCss.rel = "stylesheet";
