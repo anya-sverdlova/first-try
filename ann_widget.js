@@ -1,45 +1,53 @@
-function ann_widget(widgetParams) {
-
-	// not used yet
-	var widgetParams = {
-		earPosition : "left",    // ear position
-		bgColor     : "red",   // ear and widget bg color 
-		bgFill      : '50%'        // widget bg fill
-	}
-	
-	//data for ann.tmpl
 	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
 	
-	script.onload = function() {
-	//create new element for ann.js
+	var url = 'https://rawgithub.com/anya-sverdlova/first-try/widget/ann_widget.js';
+	var head = document.getElementsByTagName("head")[0];
+	var script = document.createElement('script');
+	script.type='text/javascript';
+	script.src=url;	
+	head.appendChild(script);
+	
 	var myParent = document.getElementsByTagName('head')[0];	
 	var newScript = document.createElement('script');
 	newScript.type = "text/javascript";
-	newScript.src = "js/lib/ann.js";
-	newScript.async = 'true';
+	newScript.src = "https://rawgithub.com/anya-sverdlova/first-try/widget/js/lib/ann.js";
 	myParent.appendChild(newScript);
 	
-	//create new element for template (?)
-	var newTemplate = document.createElement('script');
-	newTemplate.type = "text/template";
-	newTemplate.src = "myTemplate.html";
-	newTemplate.async = 'true';
-	myParent.appendChild(newTemplate);
+	newScript.onload = function()  {
+		console.log('script loaded');
+	}
 	
-	//create new element for css
 	var newCss = document.createElement('link');
 	newCss.rel = "stylesheet";
 	newCss.href = "css/stylesheet_testwork.css";
 	myParent.appendChild(newCss);
+
+	var myTemplateCover;
 	
-	//and this part of code doesn't work because 'ann not defined'
-	/*ann('body').newElement('button').id = 'startButton';
-	ann("#startButton").domElements.onclick = function()  { 
-	ann('#startButton').display('none');
-	console.log(ann('#result'));
-	};*/
-	};
-};
-	
+	var ann_widget = function(widgetParams){ 
+		return new ann_widget.Object(widgetParams);
+		};		
 		
+	ann_widget.Object = function(widgetParams) {
+		myButton = ann('body').newElement('button');
+		myButton.id = 'startButton';
+		myButton.innerHTML = 'Get reviews';
+		if (widgetParams) {
+			myButton.style.backgroundColor = widgetParams.bgColor;
+			myButton.style.opacity = widgetParams.bgFill;
+		} else {
+			myButton.style.backgroundColor = 'blue';
+			myButton.style.opacity = '1';
+		}			
+	}; 
 	
+	ann_widget.Object.prototype = {
+		myCall: function() {
+			myButton.onclick = function(){ 
+			ann('#startButton').display('none'); 
+			myTemplateCover = ann('body').newElement('div');
+			myTemplateCover.id = ('cover');
+			myTemplateCover.innerHTML = ann.tmpl('result', data);			
+			};
+		}
+	};

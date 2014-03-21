@@ -119,31 +119,31 @@ ann.annObject.prototype = {
 		});
 	},
 
-	display: function (selector) {		
-		this.domElements.style.display = selector; 
+	display: function (visibilityProp) {		
+		this.domElements.style.display = visibilityProp; 
 	}, 
 	
 	newElement: function (child) {
 		var newParent = this.domElements; 
 		var newChild;		
-		if(!!newParent[0]) { 		
+		if(this.domElements.length && this.domElements.length > 1) { 		
 			for (var i = 0; i < newParent.length; i++) { 
-			newChild = document.createElement(child); 
-			newParent[i].appendChild(newChild); 
-				} 			
-			}else{ 
+				newChild = document.createElement(child); 
+				newParent[i].appendChild(newChild); 
+			} 			
+		}else{ 
 			newChild = document.createElement(child); 
 			newParent.appendChild(newChild); 
-			}
+		}
 		return newChild;
-		},
+	},
 		
 	inside: function (content) {
 		if (!content) {
 			content = this.domElements.innerHTML;
 			return content;
 			}
-		if(!!this.domElements[0]) {
+		if(this.domElements[0]) {
 			for (var i = 0; i < this.domElements.length; i++)
 			this.domElements[i].innerHTML = content;
 			}else{	

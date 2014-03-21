@@ -3,18 +3,40 @@
 <head>
 <title>Widget-try</title>
 <meta charset="UTF-8">
-	<!-- first try -->
-	<script src="https://rawgithub.com/anya-sverdlova/first-try/widget/ann_widget.js"></script>
-	
-	<!-- second try -->
-<!--<script>
-	var url = 'https://rawgithub.com/anya-sverdlova/first-try/widget/ann_widget.js';
-	var head = document.getElementsByTagName("head")[0];
-	var script = document.createElement('script');
-	script.type='text/javascript';
-	script.src=url;	
-	head.appendChild(script);
-</script>-->
+<script type="text/template" id="result">
+	<div class="page_title">Page title</div>
+	<div class="settings">Settings</div>
+	<div class="close" onclick="function() {  };">x</div>
+	<div id="cleaner"></div>
+	<div class="rating">Rating:</div>
+	<div class="stars">
+	<% for (var i = 0; i <= starCount; i++) { %>	
+	<img src="media/star.png">
+	<% }; %> 
+	</div>
+	<div id="cleaner"></div>
+	<div class="reviews">Reviews</div>
+	<div class="add_rev">Add reviews</div>
+	<hr noshade class="blue_line">
+	<div id="wrapper">	
+	<% for ( var i = 0; i < count; i++ ) { %>
+	<div class="text_block_1">
+		<div class="inner_left"><span class="ten">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
+		<p class="text-feedback">
+		<%ann('.text-feedback').load('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ'); %> <p></div>
+		<div class="inner_right"><%=myButton%></div>
+	</div>	
+	<% }; %>
+	</div>
+</script>
+<script>
+	window.onload = function(){ 
+		ann_widget({ 			
+			bgColor     : "blue",   
+			bgFill      : '0.9'  
+		}).myCall();  	
+	}	
+</script>
 
 </head>
 <body>
