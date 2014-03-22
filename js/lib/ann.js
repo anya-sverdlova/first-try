@@ -124,16 +124,15 @@ ann.annObject.prototype = {
 	}, 
 	
 	newElement: function (child) {
-		var newParent = this.domElements; 
 		var newChild;		
 		if(this.domElements.length && this.domElements.length > 1) { 		
 			for (var i = 0; i < newParent.length; i++) { 
 				newChild = document.createElement(child); 
-				newParent[i].appendChild(newChild); 
+				this.domElements[i].appendChild(newChild); 
 			} 			
 		}else{ 
 			newChild = document.createElement(child); 
-			newParent.appendChild(newChild); 
+			this.domElements[0].appendChild(newChild); 
 		}
 		return newChild;
 	},
