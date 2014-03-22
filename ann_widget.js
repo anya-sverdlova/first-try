@@ -4,7 +4,7 @@
 	var myParent = document.getElementsByTagName('head')[0];	
 	var newScript = document.createElement('script');
 	newScript.type = "text/javascript";
-	newScript.src = "https://rawgithub.com/anya-sverdlova/first-try/widget/js/lib/ann.js";
+	newScript.src = "https://raw.githubusercontent.com/anya-sverdlova/first-try/widget/js/lib/ann.js";
 	myParent.appendChild(newScript);	
 	
 	var newCss = document.createElement('link');
