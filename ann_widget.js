@@ -22,6 +22,10 @@
 		myButton = ann('body').newElement('button');
 		myButton.id = 'startButton';
 		myButton.innerHTML = 'Get reviews';
+		myTemplateCover = ann('body').newElement('div');
+		myTemplateCover.id = ('cover');
+		myTemplateCover.innerHTML = ann.tmpl('result', data);
+		ann('#cover').display('none');
 		if (widgetParams) {
 			myButton.style.backgroundColor = widgetParams.bgColor;
 			myButton.style.opacity = widgetParams.bgFill;
@@ -35,9 +39,20 @@
 		myCall: function() {
 			myButton.onclick = function(){ 
 			ann('#startButton').display('none'); 
-			myTemplateCover = ann('body').newElement('div');
-			myTemplateCover.id = ('cover');
-			myTemplateCover.innerHTML = ann.tmpl('result', data);			
+			ann('#cover').display('block');			
 			};
 		}
 	};
+
+	function myClose() {
+		ann('#cover').display('none');
+		ann('#startButton').display('block');
+	}
+	
+	function myAddReview() {
+		ann('#cover').inside(ann.tmpl('request', data));
+	}
+	
+	function myShowReviews() {
+		ann('#cover').inside(ann.tmpl('result', data));
+	}

@@ -49,9 +49,10 @@ body {
 .reviews {
 	margin-left: 10px;
 	}
-.reviews:active, .add_rev:active {
+.reviews:hover, .add_rev:hover {
 	background: #3399cc;
 	color: white;
+	cursor: pointer;
 	}
 .blue_line {
 	background: #3399cc;
@@ -69,6 +70,10 @@ body {
 	width: 360px;
 	height: 220px;
 	padding: 10px;
+	font-size: 11px;
+	}
+#wrapper .rating {
+	font-size: 11px;
 	}
 .text_block, .text_block_1 {
 	width: 98%;
@@ -86,6 +91,7 @@ button {
 	border: none;
 	font-size: 9px;
 	color: white;
+	cursor: pointer;
 	}
 .inner_left, .inner_left_1, .inner_right {
 	float: left;
@@ -105,4 +111,19 @@ button {
 	border: 2px solid white;
 	color: white;
 	font-size: 20px;
+	}
+#wrapper input {
+	width: 195px;
+	border: 1px solid #3399cc;
+	}
+.review-input {
+	height: 75px;
+	width: 195px;
+	border: 1px solid #3399cc;
+	resize: none;
+	}
+#send-review {
+	margin: 0;
+	height: 25px;
+	width: 82px;
 	}

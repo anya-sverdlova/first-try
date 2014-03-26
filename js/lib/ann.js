@@ -35,9 +35,10 @@ ann.annObject = function(selector){
 					&& elementsByClassNames[key].tagName.toLowerCase() === elementByTagName[0].tagName.toLowerCase() )
 						elementsByTagAndClass.push(elementsByClassNames[key]);
 							if (elementsByTagAndClass.length == 1) {
-								result = elementsByTagAndClass[0]; }else{
+								result = elementsByTagAndClass[0]; 
+							}else{
 				result = elementsByTagAndClass;	
-							}
+								}
 	};
 		
 	
