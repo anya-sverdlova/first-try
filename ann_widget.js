@@ -50,9 +50,10 @@
 	}
 	
 	function myAddReview() {
-		ann('#cover').inside(ann.tmpl('request', data));
+		ann('#wrapper').inside(ann.tmpl('request', data));
 	}
 	
 	function myShowReviews() {
 		ann('#cover').inside(ann.tmpl('result', data));
 	}
+	

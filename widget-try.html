@@ -16,7 +16,7 @@
 	<% }; %> 
 	</div>
 	<div id="cleaner"></div>
-	<div class="reviews">Reviews</div>
+	<div class="reviews" onclick="myShowReviews()">Reviews</div>
 	<div class="add_rev" onclick="myAddReview()">Add reviews</div>
 	<hr noshade class="blue_line">
 	<!-- common part -->
@@ -31,22 +31,7 @@
 	<% }; %>
 	</div>
 </script>
-<script type="text/template" id="request">
-	<div class="page_title">Page title</div>
-	<div class="settings">Settings</div>
-	<div class="close" onclick="myClose()">x</div>
-	<div id="cleaner"></div>
-	<div class="rating">Rating:</div>
-	<div class="stars">
-	<% for (var i = 0; i <= starCount; i++) { %>	
-	<img src="media/star.png">
-	<% }; %> 
-	</div>
-	<div id="cleaner"></div>
-	<div class="reviews" onclick="myShowReviews()">Reviews</div>
-	<div class="add_rev">Add reviews</div>
-	<hr noshade class="blue_line">
-	<!-- not common part -->
+<script type="text/template" id="request">	
 	<div id="wrapper">
 		Name<br>
 		<input class="name-input"></input><br>

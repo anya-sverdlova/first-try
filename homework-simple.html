@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>homework-simple</title>
+<script type="text/javascript" src="js/lib/ann.js"></script>
+<meta charset="UTF-8">
+<style>
+body {
+	width: 100%;
+	height: 1000px;
+	}
+div {
+	cursor: pointer;
+	}
+#wrapper {
+	width: 760px;
+	margin: 0 auto;
+	}
+#textfield 	{
+	width: 100px; 
+	border: 1px solid #000;
+	}
+#codes {
+	width: 70%;
+	border: 1px solid red;
+	display: inline-block;
+	vertical-align: top;
+	min-height: 20px;
+	padding: 7px;
+	}
+#first-lesson {
+	padding: 10px;
+	border: 2px dotted blue;
+	}
+#changeSquare {
+	width: 120px; 
+	height: 120px; 
+	background: green; 
+	color: #fff; 
+	margin: 30px 0 0 30px;
+	padding: 8px; 
+	display: inline-block; 
+	vertical-align: top;
+	}
+#mouseClicking {
+	width: 180px; 
+	height: 150px; 
+	margin: 30px 0 0 30px;
+	padding: 8px; 
+	display: inline-block; 
+	vertical-align: top;
+	border: 5px groove #facf06;
+	}
+#exampleButton {
+	padding: 2px; 
+	margin-top: 30px;
+	height: 120px;
+	width: 120px;
+	}
+#mouseMoving {
+	width: 160px; 
+	height: 200px;
+	margin: 30px 0 0 30px;
+	padding: 8px; 
+	display: inline-block; 
+	vertical-align: top;
+	border: 2px groove black;
+	}
+#speeder {
+	
+	background: yellow;
+	position: absolute;
+	z-index: 5;
+	padding: 5px;
+	border: 1px solid #000;
+	font-family: 'Comic Sans MS';
+	text-align: center;
+	line-height: 1;
+	left: 200px;
+	}
+</style>
+</head>
+<body>
+	
+	<div id="wrapper">	
+		<div id="speeder" style="position: absolute;">move<br> me!</div>
+		<input id="textfield" onkeypress="getCode()" onfocus="clearCodes()" onblur="writeCodes()"></input>
+		<div id="codes">here'll be codes</div>
+		<button id="exampleButton">кнопка, которая срабатывает только 1 раз</button>
+		<div id="changeSquare">это цвет квадрата ДО того, как мышь хоть раз попала на него</div>
+		<div id="mouseClicking"></div>
+		<div id="mouseMoving">тут будут отображаться кординаты мыши по мере ее передвижения</div>		
+	</div>
+	
+<script>
+	function getCode() {
+		var oldContent = ann('#codes').inside();
+		ann('#codes').inside(oldContent + String.fromCharCode(event.charCode) + ' : ' + event.keyCode + '; \n');		
+	}
+	
+	function clearCodes() {
+		ann('#codes').inside(' ');
+	}
+		
+	function writeCodes() {
+		if (ann('#codes').inside() === " ") {
+		ann('#codes').inside("here'll be codes");
+		} 			
+	}
+	
+	function compareNumeric(a, b) {		
+		return +a - +b;
+	}
+	
+	//array sort numeric
+	var myArr = [5, 99, 102, 5, 3, 88, 8, 12];
+	console.log(myArr);
+	myArr.sort(compareNumeric);
+	console.log(myArr);
+	
+	//array sort letters
+	var myArr2 = ['6', '12', '5', '22', '111'];
+	console.log(myArr2);
+	myArr2.sort(compareNumeric);
+	console.log(myArr2);
+	
+	//button for testing 'click'
+	var rrr = function() {
+		alert('второй раз кнопка не сработает, ибо я удаляю event сразу после выполнения кода');
+		ann("#exampleButton").domElements.removeEventListener ('click', rrr);
+	};
+	
+	ann("#exampleButton").domElements.addEventListener ('click', rrr);
+	
+	//div for testing 'mouseout-mouseover'
+	var colorYellow = function() {
+		this.style.background = 'orange';
+		this.innerHTML = 'а это - когда мышь над квадратом';
+		this.style.color = '#000';
+		ann("#changeSquare").domElements.addEventListener ('mouseout', colorBlue);			
+	}
+	
+	var colorBlue = function() {
+		this.style.background = 'blue';
+		this.innerHTML = 'а это - когда мышь хоть раз попадала на квадрат и уходила с него';
+		this.style.color = '#fff';
+	}
+				
+	ann("#changeSquare").domElements.addEventListener ('mouseover', colorYellow);
+	
+	//div for testing other mouse's events
+	var myMouseDown = function() {		
+		this.innerHTML = 'зажата клавиша мыши';
+	}
+	
+	var myMouseOut = function() {		
+		this.innerHTML = '';
+	}
+	
+	var myContextMenu = function() {		
+		this.innerHTML = 'совершен клик правой клавишей мыши';
+	}
+	
+	var myClick = function() {		
+		this.innerHTML = 'совершен клик левой клавишей мыши';
+		
+	}
+	
+	var myDblClick = function() {		
+		this.innerHTML = 'совершен двойной клик клавишей мыши';
+		return false;
+	}
+	
+	var myMouseUp = function() {		
+		this.innerHTML = 'клавиша мыши зажата и отпущена';
+		if (event.which == 1) {
+			this.innerHTML += '...причем это была ЛЕВАЯ клавиша';
+		}
+		else if (event.which == 2) {
+			this.innerHTML += '...причем это былo колесико (или средняя клавиша)';
+		}
+		else if (event.which == 3) {
+			this.innerHTML += '...причем это была ПРАВАЯ клавиша';
+		}
+		ann("#mouseClicking").domElements.addEventListener ('mouseout', myMouseOut);
+	}
+	
+	ann("#mouseClicking").domElements.addEventListener ('mousedown', myMouseDown);
+	ann("#mouseClicking").domElements.addEventListener ('mouseup', myMouseUp);
+	ann("#mouseClicking").domElements.addEventListener ('contextmenu', myContextMenu);
+	ann("#mouseClicking").domElements.addEventListener ('dblclick', myDblClick);
+	//ann("#mouseClicking").domElements.addEventListener ('click', myClick);
+	
+	//почему событие contextmenu перехватывает управление? и почему не получается избежать вывода контекстного меню, несмотря на то, что я все сделала по учебнику (стр 136)?
+	
+	//mouse coordinates
+	var myMouseMove = function() {
+		ann("#mouseMoving").inside("относительно верхней границы окна " + event.clientY + '<br>' + "относительно левой границы окна " + event.clientX + '<br>' + "относительно верхней границы документа " + event.pageY + '<br>' + "относительно левой границы документа " + event.pageX);		
+	}
+	ann("body").domElements[0].addEventListener ('mousemove', myMouseMove);
+	
+	//drag and drop
+	ann('#speeder').domElements.onmousedown = function() {
+		var self = this;
+		
+		function myMoveMe() {
+			self.style.left = event.pageX-20+'px'; 
+			self.style.top = event.pageY-20+'px';
+		}
+		document.onmousemove = function() {
+			myMoveMe();
+		}
+		this.onmouseup = function() {
+    document.onmousemove = self.onmouseup = null;
+  }
+
+		//console.log(this.style.left);
+	}
+</script>
+</body>
+</html>	

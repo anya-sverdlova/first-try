@@ -113,7 +113,7 @@ ann.annObject.prototype = {
 		}, 'application/json' , function(data){ 					
 			for (var key in target) { 				
 				if (!(target[key] instanceof Function) && isNaN(target[key])) {				
-				target[key].innerHTML = JSON.parse(data)[1].author + ':' + JSON.parse(data)[1].message; 								
+				target[key].innerHTML = JSON.parse(data)[0].author + ':' + JSON.parse(data)[0].message; 								
 			}
 		} }, function(xhr, message){
 			if(target[0]) target[0].innerHTML = message;
