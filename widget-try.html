@@ -16,12 +16,12 @@
 	<% }; %> 
 	</div>
 	<div id="cleaner"></div>
-	<div class="reviews active-inset">Reviews</div>
-	<div class="add_rev">Add reviews</div>
+	<div class="rev-btn reviews active-inset">Reviews</div>
+	<div class="rev-btn add_rev">Add reviews</div>
 	<hr noshade class="blue_line">
 	<!-- common part -->
 	<div id="wrapper">	
-	<div class="wrapper-get">
+	<div class="inner-wrapper wrapper-get">
 	<% for ( var i = 0; i < count; i++ ) { %>
 	<div class="text_block_1">
 		<div class="inner_left"><span class="ten from-container">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
@@ -32,8 +32,7 @@
 	</div>
 	</div>
 </script>
-<script type="text/template" id="request">
-	
+<script type="text/template" id="request">	
 		Name<br>
 		<input class="name-input"></input><br>
 		Review<br>
@@ -45,8 +44,7 @@
 		<% }; %> 
 		</div>
 		<div id="cleaner"></div>
-		<button id="send-review">Submit</button>
-	
+		<button id="send-review">Submit</button>	
 </script>
 <script>
 	window.onload = function(){ 
