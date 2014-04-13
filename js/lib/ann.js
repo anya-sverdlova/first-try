@@ -138,16 +138,17 @@ ann.annObject.prototype = {
 		return newChild;
 	},
 		
-	inside: function (content) {
-		if (!content) {
-			content = this.domElements.innerHTML;
-			return content;
-			}
+	setContent: function (content) {
 		if(this.domElements[0]) {
 			for (var i = 0; i < this.domElements.length; i++)
 			this.domElements[i].innerHTML = content;
 			}else{	
 		this.domElements.innerHTML = content; }
+		},
+		
+	getContent: function() {
+		var content = this.domElements.innerHTML;
+		return content;
 		}
 };
 

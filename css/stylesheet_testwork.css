@@ -13,9 +13,14 @@ body {
 	background: #ffffff;
 	margin-top: 7%;
 	}
-.page_title, .settings, .rating, .stars, .close, .reviews, .add_rev  {
+.page_title, .settings, .rating, .stars, .close  {
 	padding: 5px;
 	float: left;
+	font-size: 14px;
+	}
+.reviews, .add_rev {
+	display: inline-block;
+	padding: 5px;	
 	font-size: 14px;
 	}
 .close {
@@ -45,20 +50,37 @@ body {
 .reviews, .add_rev {
 	font-size: 11px;
 	margin-top: 5px;
-	}
-.reviews {
-	margin-left: 10px;
-	}
-.reviews:hover, .add_rev:hover {
-	background: #3399cc;
-	color: white;
 	cursor: pointer;
+	background: #3399cc;
+	color: #fff;
+	
 	}
+.active-inset {	
+	background: #fff;
+	border: 1px solid #3399cc;
+	border-bottom: 1px solid #fff;
+	margin-bottom: -1px;
+	border-radius: 5px 5px 0 0;	
+	color: #000;
+}
+.reviews {
+	margin-left: 10px;	
+	}
+.add_rev {
+	margin-left: -5px;
+	}
+/*.reviews:hover, .add_rev:hover {
+	background: #3399cc;
+	color: white;	
+	}*/
+
 .blue_line {
 	background: #3399cc;
 	height: 1px;
 	width: 100%;
 	border: none;
+	margin: 0;
+	padding: 0;
 	}
 .blue {
 	color: #3399cc;
@@ -71,6 +93,7 @@ body {
 	height: 220px;
 	padding: 10px;
 	font-size: 11px;
+	position: relative;
 	}
 #wrapper .rating {
 	font-size: 11px;

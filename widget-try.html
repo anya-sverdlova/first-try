@@ -3,9 +3,9 @@
 <head>
 <title>Widget-try</title>
 <meta charset="UTF-8">
-<script type="text/javascript" src="ann_widget.js"></script>
+<script type="text/javascript" src="$_widget.js"></script>
 <script type="text/template" id="result">
-	<div class="page_title">Page title</div>
+<div class="page_title">Page title</div>
 	<div class="settings">Settings</div>
 	<div class="close" onclick="myClose()">x</div>
 	<div id="cleaner"></div>
@@ -16,38 +16,24 @@
 	<% }; %> 
 	</div>
 	<div id="cleaner"></div>
-	<div class="reviews">Reviews</div>
-	<div class="add_rev" onclick="myAddReview()">Add reviews</div>
+	<div class="reviews active-inset">Reviews</div>
+	<div class="add_rev">Add reviews</div>
 	<hr noshade class="blue_line">
 	<!-- common part -->
 	<div id="wrapper">	
+	<div class="wrapper-get">
 	<% for ( var i = 0; i < count; i++ ) { %>
 	<div class="text_block_1">
-		<div class="inner_left"><span class="ten">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
-		<p class="text-feedback">
-		<%ann('.text-feedback').load('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ'); %> <p></div>
+		<div class="inner_left"><span class="ten from-container">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
+		<p class="text-feedback"><p></div>
 		<div class="inner_right"><%=myButton%></div>
 	</div>	
 	<% }; %>
 	</div>
+	</div>
 </script>
 <script type="text/template" id="request">
-	<div class="page_title">Page title</div>
-	<div class="settings">Settings</div>
-	<div class="close" onclick="myClose()">x</div>
-	<div id="cleaner"></div>
-	<div class="rating">Rating:</div>
-	<div class="stars">
-	<% for (var i = 0; i <= starCount; i++) { %>	
-	<img src="media/star.png">
-	<% }; %> 
-	</div>
-	<div id="cleaner"></div>
-	<div class="reviews" onclick="myShowReviews()">Reviews</div>
-	<div class="add_rev">Add reviews</div>
-	<hr noshade class="blue_line">
-	<!-- not common part -->
-	<div id="wrapper">
+	
 		Name<br>
 		<input class="name-input"></input><br>
 		Review<br>
@@ -60,17 +46,16 @@
 		</div>
 		<div id="cleaner"></div>
 		<button id="send-review">Submit</button>
-	</div>
+	
 </script>
 <script>
 	window.onload = function(){ 
-		ann_widget({ 			
+		myWidget({ 			
 			bgColor     : "blue",   
-			bgFill      : '0.9'  
-		}).myCall();  	
-	}	
+			bgFill      : '0.8'  
+		}); 
+	}
 </script>
-
 </head>
 <body>
 
