@@ -18,10 +18,8 @@ body {
 	float: left;
 	font-size: 14px;
 	}
-.reviews, .add_rev {
-	display: inline-block;
-	padding: 5px;	
-	font-size: 14px;
+.reviews, .add-reviews {
+	
 	}
 .close {
 	float: right;
@@ -47,13 +45,14 @@ body {
 	padding: 0 3px;
 	margin-top: -2px;
 }
-.reviews, .add_rev {
+.reviews, .add-reviews {
+	display: inline-block;
+	padding: 5px;
+	margin-top: 5px;	
 	font-size: 11px;
-	margin-top: 5px;
 	cursor: pointer;
 	background: #3399cc;
 	color: #fff;
-	
 	}
 .active-inset {	
 	background: #fff;
@@ -66,14 +65,9 @@ body {
 .reviews {
 	margin-left: 10px;	
 	}
-.add_rev {
+.add-reviews {
 	margin-left: -5px;
 	}
-/*.reviews:hover, .add_rev:hover {
-	background: #3399cc;
-	color: white;	
-	}*/
-
 .blue_line {
 	background: #3399cc;
 	height: 1px;

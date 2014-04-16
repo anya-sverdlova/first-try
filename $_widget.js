@@ -21,7 +21,7 @@
 	newCss.href = "css/stylesheet_testwork.css";
 	myParent.appendChild(newCss);
 	
-	var myFlag, myInnerWrapper, myReviewButton, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReview, myShowReviews, myShowAddReviews, 
+	var myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, 
   
 	myWidget = function(widgetParams) {					
 	
@@ -44,7 +44,8 @@
 		},
 		
 		myShowReviews = function() { 
-			if (!$(this).hasClass('active-inset')) {  $('.rev-btn').toggleClass('active-inset');
+			if (!$(this).hasClass('active-inset')) {  
+				$('.rev-btn').toggleClass('active-inset');
 				myInnerWrapper = $('#wrapper').find('.inner-wrapper');
 				for (var i = 0; i < myInnerWrapper.length; i++) { 
 					if (myInnerWrapper[i].style.display === 'block') {
@@ -69,21 +70,18 @@
 			.fail(function(errError) {
 				console.log('ERROR');
 			});
-			
-			
-
 			myButton.unbind('click');
 			myButton.on('click', myCall);
-			$('.add_rev').on('click', myAddReview);			
+			$('.add-reviews').on('click', myAddReviewEvent);			
 		}	
 		
-		myAddReview = function() {
+		myAddReviewEvent = function() {
 			$('.wrapper-get').css('display', 'none');
 			myTemplateCoverMini = $('<div>').appendTo('#wrapper')
 											.prop('class', 'wrapper-set inner-wrapper')
 											.css('display', 'block')
 											.html(myTmpl('request', data));									
-			$('.add_rev').unbind('click')	
+			$('.add-reviews').unbind('click')	
 						.on('click', myShowReviews)
 						.addClass('active-inset');
 			$('.reviews').on('click', myShowReviews)
