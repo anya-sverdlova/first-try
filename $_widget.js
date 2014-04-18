@@ -1,4 +1,4 @@
-	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
+	var myData = { count: 4, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	
@@ -21,7 +21,7 @@
 	newCss.href = "css/stylesheet_testwork.css";
 	myParent.appendChild(newCss);
 	
-	var myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
+	var myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
   
 	myWidget = function(widgetParams) {					
 		
@@ -35,13 +35,7 @@
 			});
 		}
 		
-		myPostReviews = function() { 			
-			/*$.post("https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ",
-				JSON.stringify({
-				message : $('.review-input').val(),
-				author : $('.name-input').val(), 
-				date: myDMYDate.join('.') + ' ' + nowDate.toString().split(' ')[4]
-				}));*/			
+		myPostReviews = function() { 									
 			$.ajax({
 				type: "POST",
 				url: "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ",
@@ -55,11 +49,11 @@
 			});
 		},
 		
-		myGetReviews = function(data) {
-			for (var i = 0; i < data.length; i++) {
-				$('.text-feedback')[i].innerHTML = data[i].message;
-				$('.from-container')[i].innerHTML = data[i].author;
-				$('.blue')[i].innerHTML = myDMYDate.join('.') + ' ' + nowDate.toString().split(' ')[4];
+		myGetReviews = function(data) {			
+			for (var j = i = 0; i < myData.count, j < myData.count; i++, j++) {			
+				$('.text-feedback')[j].innerHTML = data[i].message;
+				$('.from-container')[j].innerHTML = data[i].author;
+				$('.blue')[j].innerHTML = data[i].date				
 			}	
 			myTemplateCover.show(200); 		
 		},				
@@ -93,8 +87,8 @@
 			myTemplateCover = $('<div>').appendTo('body')
 										.prop('id', 'cover')
 										.css('display','none')
-										.html(myTmpl('result', data));						 
-			myGet(this, data);
+										.html(myTmpl('result', myData));						 
+			myGet(this, myData);
 			myButton.unbind('click');
 			myButton.on('click', myCall);
 			$('.add-reviews').on('click', myAddReviewEvent);			
@@ -105,7 +99,7 @@
 			myTemplateCoverMini = $('<div>').appendTo('#wrapper')
 											.prop('class', 'wrapper-set inner-wrapper')
 											.css('display', 'block')
-											.html(myTmpl('request', data));	
+											.html(myTmpl('request', myData));	
 			//$('').on();
 			$('.add-reviews').unbind('click')	
 						.on('click', myShowReviews)
@@ -124,7 +118,7 @@
 			myButton.css('opacity', widgetParams.bgFill);
 		} 
 
-		myTmpl = function tmpl(str, data){ 
+		myTmpl = function tmpl(str, myData){ 
 		var cache = {};
 		var fn = !/\W/.test(str) ?
 		cache[str] = cache[str] ||
@@ -144,7 +138,7 @@
           .split("\r").join("\\'")
       + "');}return p.join('');");
 
-		return data ? fn( data ) : fn;
+		return myData ? fn( myData ) : fn;
 		};
 		
 		//get date
