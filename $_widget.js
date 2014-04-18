@@ -1,4 +1,4 @@
-	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5  }, myButton, myTemplateCover;
+	var data = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	
@@ -21,14 +21,45 @@
 	newCss.href = "css/stylesheet_testwork.css";
 	myParent.appendChild(newCss);
 	
-	var myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, 
+	var myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
   
 	myWidget = function(widgetParams) {					
-	
+		
+		myGet = function(data) { 
+			$.get('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ' )
+			.done(function(data) {
+				myGetReviews.call(this, data);				
+			})
+			.fail(function(errError) {
+				console.log('ERROR');
+			});
+		}
+		
+		myPostReviews = function() { 			
+			/*$.post("https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ",
+				JSON.stringify({
+				message : $('.review-input').val(),
+				author : $('.name-input').val(), 
+				date: myDMYDate.join('.') + ' ' + nowDate.toString().split(' ')[4]
+				}));*/			
+			$.ajax({
+				type: "POST",
+				url: "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ",
+				data: JSON.stringify({
+				message : $('.review-input').val(),
+				author : $('.name-input').val(), 
+				date: myDMYDate.join('.') + ' ' + nowDate.toString().split(' ')[4]
+				}),
+				success: console.log('success'),
+				contentType: "application/json"
+			});
+		},
+		
 		myGetReviews = function(data) {
 			for (var i = 0; i < data.length; i++) {
 				$('.text-feedback')[i].innerHTML = data[i].message;
 				$('.from-container')[i].innerHTML = data[i].author;
+				$('.blue')[i].innerHTML = myDMYDate.join('.') + ' ' + nowDate.toString().split(' ')[4];
 			}	
 			myTemplateCover.show(200); 		
 		},				
@@ -63,13 +94,7 @@
 										.prop('id', 'cover')
 										.css('display','none')
 										.html(myTmpl('result', data));						 
-			$.get('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ' )
-			.done(function(data) {
-				myGetReviews.call(this, data);				
-			})
-			.fail(function(errError) {
-				console.log('ERROR');
-			});
+			myGet(this, data);
 			myButton.unbind('click');
 			myButton.on('click', myCall);
 			$('.add-reviews').on('click', myAddReviewEvent);			
@@ -80,7 +105,8 @@
 			myTemplateCoverMini = $('<div>').appendTo('#wrapper')
 											.prop('class', 'wrapper-set inner-wrapper')
 											.css('display', 'block')
-											.html(myTmpl('request', data));									
+											.html(myTmpl('request', data));	
+			//$('').on();
 			$('.add-reviews').unbind('click')	
 						.on('click', myShowReviews)
 						.addClass('active-inset');
@@ -120,4 +146,23 @@
 
 		return data ? fn( data ) : fn;
 		};
+		
+		//get date
+	var myAllDate;
+	var myDMYDate = [];	
+	var nowDate = new Date();
+	var myGetDate = function(nowDate) {	
+	myDMYDate.push(nowDate.getDate());
+	myDMYDate.push(nowDate.getMonth());
+	myDMYDate.push((nowDate.getFullYear() - 2000));
+	for (var i = 0; i < myDMYDate.length; i++) {
+		if (myDMYDate[i] < 10) {
+			myDMYDate[i] = '0' + myDMYDate[i].toString();
+		} else {
+			myDMYDate[i] = myDMYDate[i].toString();
+			}
+	}		
+	return myDMYDate.join('.');	
+	}
+	myGetDate(nowDate);	
 	}; 
