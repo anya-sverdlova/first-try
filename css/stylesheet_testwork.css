@@ -8,18 +8,15 @@ body {
 	}
 #cover {
 	width: 385px;
-	height: 425px;
 	margin: auto;
 	background: #ffffff;
 	margin-top: 7%;
+	min-height: 330px;
 	}
-.page_title, .settings, .rating, .stars, .close  {
+.page_title, .settings, .rating, .stars, .close, .reviews, .add_rev  {
 	padding: 5px;
 	float: left;
 	font-size: 14px;
-	}
-.reviews, .add-reviews {
-	
 	}
 .close {
 	float: right;
@@ -45,36 +42,22 @@ body {
 	padding: 0 3px;
 	margin-top: -2px;
 }
-.reviews, .add-reviews {
-	display: inline-block;
-	padding: 5px;
-	margin-top: 5px;	
+.reviews, .add_rev {
 	font-size: 11px;
-	cursor: pointer;
-	background: #3399cc;
-	color: #fff;
+	margin-top: 5px;
 	}
-.active-inset {	
-	background: #fff;
-	border: 1px solid #3399cc;
-	border-bottom: 1px solid #fff;
-	margin-bottom: -1px;
-	border-radius: 5px 5px 0 0;	
-	color: #000;
-}
 .reviews {
-	margin-left: 10px;	
+	margin-left: 10px;
 	}
-.add-reviews {
-	margin-left: -5px;
+.reviews:active, .add_rev:active {
+	background: #3399cc;
+	color: white;
 	}
 .blue_line {
 	background: #3399cc;
 	height: 1px;
 	width: 100%;
 	border: none;
-	margin: 0;
-	padding: 0;
 	}
 .blue {
 	color: #3399cc;
@@ -83,21 +66,16 @@ body {
 	font-size: 10px;
 	}
 #wrapper {
-	width: 360px;
-	height: 220px;
 	padding: 10px;
-	font-size: 11px;
-	position: relative;
+	border-top: 1px solid #3399cc;
 	}
-#wrapper .rating {
-	font-size: 11px;
-	}
-.text_block, .text_block_1 {
-	width: 98%;
+.text_block {
+	width: 97%;
 	height: 55px;
 	border: 1px solid #3399cc;
 	padding: 0 5px;
 	margin-bottom: 12px;
+	overflow: hidden;
 	}
 button {
 	width: 50px;
@@ -108,39 +86,16 @@ button {
 	border: none;
 	font-size: 9px;
 	color: white;
-	cursor: pointer;
 	}
-.inner_left, .inner_left_1, .inner_right {
-	float: left;
+.inner_left, .inner_right {
+	display: inline-block;
+	vertical-align: top;
 	}
-.inner_left, .inner_left_1 {
+.inner_left {
 	width: 80%;
 	font-size: 9px;
 	}
-#startButton {
-	width: 200px;
-	height: 50px;
-	position: absolute;
-	left: 50%;
-	margin-left: -100px;
-	top: 100%;
-	margin-top: -50px;
-	border: 2px solid white;
-	color: white;
-	font-size: 20px;
-	}
-#wrapper input {
-	width: 195px;
-	border: 1px solid #3399cc;
-	}
-.review-input {
-	height: 75px;
-	width: 195px;
-	border: 1px solid #3399cc;
-	resize: none;
-	}
-#send-review {
-	margin: 0;
-	height: 25px;
-	width: 82px;
+	
+.inner_right {
+	width: 60px;
 	}
