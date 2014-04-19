@@ -8,10 +8,10 @@ body {
 	}
 #cover {
 	width: 385px;
-	height: 425px;
 	margin: auto;
 	background: #ffffff;
 	margin-top: 7%;
+	min-height: 330px;
 	}
 .page_title, .settings, .rating, .stars, .close, .reviews, .add_rev  {
 	padding: 5px;
@@ -66,16 +66,16 @@ body {
 	font-size: 10px;
 	}
 #wrapper {
-	width: 360px;
-	height: 220px;
 	padding: 10px;
+	border-top: 1px solid #3399cc;
 	}
-.text_block, .text_block_1 {
-	width: 98%;
+.text_block {
+	width: 97%;
 	height: 55px;
 	border: 1px solid #3399cc;
 	padding: 0 5px;
 	margin-bottom: 12px;
+	overflow: hidden;
 	}
 button {
 	width: 50px;
@@ -87,10 +87,15 @@ button {
 	font-size: 9px;
 	color: white;
 	}
-.inner_left, .inner_left_1, .inner_right {
-	float: left;
+.inner_left, .inner_right {
+	display: inline-block;
+	vertical-align: top;
 	}
-.inner_left, .inner_left_1 {
+.inner_left {
 	width: 80%;
 	font-size: 9px;
+	}
+	
+.inner_right {
+	width: 60px;
 	}
