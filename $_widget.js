@@ -66,14 +66,16 @@
 				myData.count = data.length;		
 			} 			
 			for (var j = i = 0; i < data.length, j < myData.count; i++, j++) {	
-			if (data.length === 0) { 
-				$('.text-feedback')[j].innerHTML = 'there is nothing there yet';
-			} 
 				$('.text-feedback')[j].innerHTML = data[i].message;
 				$('.from-container')[j].innerHTML = data[i].author;
 				$('.blue')[j].innerHTML = data[i].date	  		
+			} 
+			myTemplateCover.show(200);
+			if (data.length === 0) { //почему сюда заходит, 
+				for (var k = 0; k < myData.count; k++) {	//а сюда - нет???
+				$('.text-feedback')[k].innerHTML = 'there is nothing there yet';		
+				}
 			}
-			myTemplateCover.show(200); 		
 		},				
 		
 		myCall = function() {  
