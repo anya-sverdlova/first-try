@@ -3,27 +3,29 @@ body {
 	background: grey;
 	font-family: 'Arial';
 	}
+	
 #cleaner {
 	clear: both;
 	}
+	
 #cover {
 	width: 385px;
-	height: 425px;
 	margin: auto;
 	background: #ffffff;
 	margin-top: 7%;
+	min-height: 330px;
 	}
-.page_title, .settings, .rating, .stars, .close  {
+	
+.page_title, .settings, .stars, .close, .rating  {
 	padding: 5px;
 	float: left;
 	font-size: 14px;
 	}
-.reviews, .add-reviews {
 	
-	}
 .close {
 	float: right;
 	}
+	
 .page_title {
 	width: 295px;
 	height: 18px;
@@ -61,44 +63,42 @@ body {
 	margin-bottom: -1px;
 	border-radius: 5px 5px 0 0;	
 	color: #000;
-}
+	}
 .reviews {
 	margin-left: 10px;	
 	}
+	
 .add-reviews {
 	margin-left: -5px;
 	}
-.blue_line {
-	background: #3399cc;
-	height: 1px;
-	width: 100%;
-	border: none;
-	margin: 0;
-	padding: 0;
-	}
+
 .blue {
 	color: #3399cc;
 	}
+	
 .ten {
 	font-size: 10px;
 	}
+	
 #wrapper {
-	width: 360px;
-	height: 220px;
 	padding: 10px;
-	font-size: 11px;
-	position: relative;
-	}
-#wrapper .rating {
+	border-top: 1px solid #3399cc;
 	font-size: 11px;
 	}
-.text_block, .text_block_1 {
-	width: 98%;
+	
+.rating {
+	font-size: 11px;
+	}
+	
+.text_block {
+	width: 97%;
 	height: 55px;
 	border: 1px solid #3399cc;
 	padding: 0 5px;
 	margin-bottom: 12px;
+	overflow: hidden;
 	}
+	
 button {
 	width: 50px;
 	height: 14px;
@@ -110,13 +110,21 @@ button {
 	color: white;
 	cursor: pointer;
 	}
-.inner_left, .inner_left_1, .inner_right {
-	float: left;
+	
+.inner_left, .inner_right {
+	display: inline-block;
+	vertical-align: top;
 	}
-.inner_left, .inner_left_1 {
+	
+.inner_left {
 	width: 80%;
 	font-size: 9px;
 	}
+	
+.inner_right {
+	width: 60px;
+	}
+	
 #startButton {
 	width: 200px;
 	height: 50px;
@@ -129,16 +137,19 @@ button {
 	color: white;
 	font-size: 20px;
 	}
+	
 #wrapper input {
 	width: 195px;
 	border: 1px solid #3399cc;
 	}
+	
 .review-input {
 	height: 75px;
 	width: 195px;
 	border: 1px solid #3399cc;
 	resize: none;
 	}
+	
 #send-review {
 	margin: 0;
 	height: 25px;

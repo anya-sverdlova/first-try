@@ -1,4 +1,4 @@
-	var myData = { count: 4, myButton: '<button>Comment</button>', starCount: 5  };
+	var myData = { count: 1, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	
@@ -21,7 +21,10 @@
 	newCss.href = "css/stylesheet_testwork.css";
 	myParent.appendChild(newCss);
 	
-	var myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
+	var date = new Date;
+	date = date.toString().split(' ');
+	
+	var reviewsNumber, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
   
 	myWidget = function(widgetParams) {					
 		
@@ -42,18 +45,24 @@
 				data: JSON.stringify({
 				message : $('.review-input').val(),
 				author : $('.name-input').val(), 
-				date: myDMYDate.join('.') + ' ' + nowDate.toString().split(' ')[4]
+				date: date[4].slice(0, 5) + '  ' + date[2] + ' ' + date[1] + ' ' + date[3]
 				}),
-				success: console.log('success'),
+				success: $('.wrapper-set').html('Congratulation! Your review will be publiced.'),
 				contentType: "application/json"
-			});
+			}); 
 		},
 		
-		myGetReviews = function(data) {			
-			for (var j = i = 0; i < myData.count, j < myData.count; i++, j++) {			
+		myGetReviews = function(data) {	
+			myGet();
+			reviewsNumberOnPage = data.length - myData.count; 
+			if (reviewsNumberOnPage < 0) {  //почему, когда myData.count = data.length = 1, выводится все равно три блока? 
+				reviewsNumberOnPage = 0;
+				myData.count = data.length;
+			} 
+			for (var j = 0, i = reviewsNumberOnPage; i < data.length, j < myData.count; i++, j++) {	
 				$('.text-feedback')[j].innerHTML = data[i].message;
 				$('.from-container')[j].innerHTML = data[i].author;
-				$('.blue')[j].innerHTML = data[i].date				
+				$('.blue')[j].innerHTML = data[i].date	 			
 			}	
 			myTemplateCover.show(200); 		
 		},				
@@ -78,7 +87,10 @@
 					} else {
 						myInnerWrapper[i].style.display = 'block';
 					}
-				} 			
+				}
+				if ($(this).hasClass('reviews')) {
+					myGet(this, myData);
+				}
 			} 					
 		},
 		
@@ -93,7 +105,7 @@
 			myButton.on('click', myCall);
 			$('.add-reviews').on('click', myAddReviewEvent);			
 		}	
-		
+		//сделать так, чтобы после успешной отправки иннер хтмл содержал просто надпись "все получилось", а потом, например, через 30сек, выдавал ту же формуц
 		myAddReviewEvent = function() {
 			$('.wrapper-get').css('display', 'none');
 			myTemplateCoverMini = $('<div>').appendTo('#wrapper')
@@ -141,22 +153,4 @@
 		return myData ? fn( myData ) : fn;
 		};
 		
-		//get date
-	var myAllDate;
-	var myDMYDate = [];	
-	var nowDate = new Date();
-	var myGetDate = function(nowDate) {	
-	myDMYDate.push(nowDate.getDate());
-	myDMYDate.push(nowDate.getMonth());
-	myDMYDate.push((nowDate.getFullYear() - 2000));
-	for (var i = 0; i < myDMYDate.length; i++) {
-		if (myDMYDate[i] < 10) {
-			myDMYDate[i] = '0' + myDMYDate[i].toString();
-		} else {
-			myDMYDate[i] = myDMYDate[i].toString();
-			}
-	}		
-	return myDMYDate.join('.');	
-	}
-	myGetDate(nowDate);	
 	}; 
