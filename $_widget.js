@@ -1,4 +1,4 @@
-	var myData = { count: 1, myButton: '<button>Comment</button>', starCount: 5  };
+	var myData = { count: 2, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	
@@ -24,14 +24,14 @@
 	var date = new Date;
 	date = date.toString().split(' ');
 	
-	var reviewsNumber, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
+	var myCongratulationCover, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
   
 	myWidget = function(widgetParams) {					
 		
-		myGet = function(data) { 
+		myGet = function(myData) { 
 			$.get('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ' )
-			.done(function(data) {
-				myGetReviews.call(this, data);				
+			.done(function(myData) {
+				myGetReviews.call(this, myData);				
 			})
 			.fail(function(errError) {
 				console.log('ERROR');
@@ -47,23 +47,32 @@
 				author : $('.name-input').val(), 
 				date: date[4].slice(0, 5) + '  ' + date[2] + ' ' + date[1] + ' ' + date[3]
 				}),
-				success: $('.wrapper-set').html('Congratulation! Your review will be publiced.'),
+				success: function() {
+					myTemplateCoverMini.css('display', 'none');
+					myCongratulationCover.css('display', 'block');
+					setTimeout(function() {
+								myTemplateCoverMini.css('display', 'block');
+								$('.name-input').val(' ');
+								$('.review-input').val(' ');
+								myCongratulationCover.css('display', 'none');
+								}, 5000)
+						},
 				contentType: "application/json"
 			}); 
 		},
 		
-		myGetReviews = function(data) {	
-			myGet();
-			reviewsNumberOnPage = data.length - myData.count; 
-			if (reviewsNumberOnPage < 0) {  //почему, когда myData.count = data.length = 1, выводится все равно три блока? 
-				reviewsNumberOnPage = 0;
-				myData.count = data.length;
+		myGetReviews = function(data) {					
+			if (myData.count > data.length) {  //без этого цикла возникает ошибка, если выполняется условие в скобках	
+				myData.count = data.length;		
+			} 			
+			for (var j = i = 0; i < data.length, j < myData.count; i++, j++) {	
+			if (data.length === 0) { 
+				$('.text-feedback')[j].innerHTML = 'there is nothing there yet';
 			} 
-			for (var j = 0, i = reviewsNumberOnPage; i < data.length, j < myData.count; i++, j++) {	
 				$('.text-feedback')[j].innerHTML = data[i].message;
 				$('.from-container')[j].innerHTML = data[i].author;
-				$('.blue')[j].innerHTML = data[i].date	 			
-			}	
+				$('.blue')[j].innerHTML = data[i].date	  		
+			}
 			myTemplateCover.show(200); 		
 		},				
 		
@@ -99,19 +108,23 @@
 			myTemplateCover = $('<div>').appendTo('body')
 										.prop('id', 'cover')
 										.css('display','none')
-										.html(myTmpl('result', myData));						 
+										.html(myTmpl('result', myData));		
 			myGet(this, myData);
 			myButton.unbind('click');
 			myButton.on('click', myCall);
 			$('.add-reviews').on('click', myAddReviewEvent);			
 		}	
-		//сделать так, чтобы после успешной отправки иннер хтмл содержал просто надпись "все получилось", а потом, например, через 30сек, выдавал ту же формуц
+		
 		myAddReviewEvent = function() {
 			$('.wrapper-get').css('display', 'none');
 			myTemplateCoverMini = $('<div>').appendTo('#wrapper')
 											.prop('class', 'wrapper-set inner-wrapper')
 											.css('display', 'block')
-											.html(myTmpl('request', myData));	
+											.html(myTmpl('request', myData));
+			myCongratulationCover = $('<div>').appendTo('#cover')
+											.prop('id', 'congratulation')
+											.css({'display':'none', 'font-size':'20px', 'text-align':'center'})
+											.html('Congratulation! Your review will be published!');											
 			//$('').on();
 			$('.add-reviews').unbind('click')	
 						.on('click', myShowReviews)
