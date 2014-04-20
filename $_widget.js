@@ -1,4 +1,4 @@
-	var myData = { count: 2, myButton: '<button>Comment</button>', starCount: 5  };
+	var myData = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	
@@ -24,10 +24,10 @@
 	var date = new Date;
 	date = date.toString().split(' ');
 	
-	var myCongratulationCover, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
+	var myStarActivate, myCongratulationCover, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
   
 	myWidget = function(widgetParams) {					
-		
+
 		myGet = function(myData) { 
 			$.get('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ' )
 			.done(function(myData) {
@@ -38,14 +38,15 @@
 			});
 		}
 		
-		myPostReviews = function() { 									
+		myPostReviews = function() { 
 			$.ajax({
 				type: "POST",
 				url: "https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ",
 				data: JSON.stringify({
 				message : $('.review-input').val(),
 				author : $('.name-input').val(), 
-				date: date[4].slice(0, 5) + '  ' + date[2] + ' ' + date[1] + ' ' + date[3]
+				date: date[4].slice(0, 5) + '  ' + date[2] + ' ' + date[1] + ' ' + date[3],
+				raiting: $('.choice-star.active-star').length 
 				}),
 				success: function() {
 					myTemplateCoverMini.css('display', 'none');
@@ -54,28 +55,35 @@
 								myTemplateCoverMini.css('display', 'block');
 								$('.name-input').val(' ');
 								$('.review-input').val(' ');
+								$('.choice-star').removeClass('active-star');
 								myCongratulationCover.css('display', 'none');
-								}, 5000)
+								}, 2000)
 						},
 				contentType: "application/json"
 			}); 
 		},
 		
-		myGetReviews = function(data) {					
-			if (myData.count > data.length) {  //без этого цикла возникает ошибка, если выполняется условие в скобках	
+		myGetReviews = function(data) {	
+		var currentRaiting = 0;		
+//без этого цикла возникает ошибка, если выполняется условие в скобках, а с циклом появляются просто новые слоты. не понимаю, почему
+			for (var l = 0; l < data.length; l++) {
+				currentRaiting += data[l].raiting;
+			}
+			if (myData.count > data.length) {  
 				myData.count = data.length;		
 			} 			
-			for (var j = i = 0; i < data.length, j < myData.count; i++, j++) {	
+			for (var j = 0, i = data.length - 1; i <= 0, j < myData.count; i--, j++) {	
 				$('.text-feedback')[j].innerHTML = data[i].message;
 				$('.from-container')[j].innerHTML = data[i].author;
-				$('.blue')[j].innerHTML = data[i].date	  		
-			} 
-			myTemplateCover.show(200);
-			if (data.length === 0) { //почему сюда заходит, 
-				for (var k = 0; k < myData.count; k++) {	//а сюда - нет???
-				$('.text-feedback')[k].innerHTML = 'there is nothing there yet';		
+				$('.blue')[j].innerHTML = data[i].date;
+				if (data[i].raiting > 2) { 
+					$($('.comment-star')[j]).addClass('active-star');					
 				}
+			} 			
+			for (var k = 0; k < Math.round(currentRaiting/data.length); k++) {
+				$($('.star-container')[k]).addClass('active-star');
 			}
+			myTemplateCover.show(200); 
 		},				
 		
 		myCall = function() {  
@@ -132,7 +140,8 @@
 						.on('click', myShowReviews)
 						.addClass('active-inset');
 			$('.reviews').on('click', myShowReviews)
-						.removeClass('active-inset');;									
+						.removeClass('active-inset');
+			$('.choice-star').on('click', function() { $(this).addClass('active-star') })
 		}				
 		
 		myButton = $('<button>').appendTo('body')

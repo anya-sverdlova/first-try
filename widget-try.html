@@ -11,8 +11,8 @@
 	<div id="cleaner"></div>
 	<div class="rating">Rating:</div>
 	<div class="stars">
-	<% for (var i = 0; i <= starCount; i++) { %>	
-	<img src="media/star.png">
+	<% for (var i = 1; i <= starCount; i++) { %>	
+	<div class="star-container"></div>
 	<% }; %> 
 	</div>
 	<div id="cleaner"></div>
@@ -25,7 +25,10 @@
 	<div class="text_block">
 		<div class="inner_left"><span class="ten from-container">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
 		<p class="text-feedback"><p></div>
-		<div class="inner_right"><%=myButton%></div>
+		<div class="inner_right">
+		<div class="comment-star"></div>
+		<%=myButton%>
+		</div>
 	</div>	
 	<% }; %>
 	</div>
@@ -38,8 +41,8 @@
 		<textarea class="review-input"></textarea><br>
 		<div class="rating">Rating:</div>		
 		<div class="stars">
-		<% for (var i = 0; i <= starCount; i++) { %>	
-		<img src="media/star.png">
+		<% for (var i = 1; i <= starCount; i++) { %>	
+		<div class="star-container choice-star"></div>
 		<% }; %> 
 		</div>
 		<div id="cleaner"></div>

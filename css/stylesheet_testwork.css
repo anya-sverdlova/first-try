@@ -16,7 +16,7 @@ body {
 	min-height: 330px;
 	}
 	
-.page_title, .settings, .stars, .close, .rating  {
+.page_title, .settings, .close, .rating  {
 	padding: 5px;
 	float: left;
 	font-size: 14px;
@@ -122,6 +122,7 @@ button {
 	}
 	
 .inner_right {
+	position: relative;
 	width: 60px;
 	}
 	
@@ -155,3 +156,26 @@ button {
 	height: 25px;
 	width: 82px;
 	}
+	
+.star-container {
+	display: inline-block;
+	margin: 2px;
+	width: 19px; 
+	height: 18px; 
+	background: url(../media/star-sprite.png) 19px 0; 
+	}
+
+.comment-star {	
+	position: absolute; 
+	top: 2px; 
+	right: -10px;
+	width: 19px; 
+	height: 18px; 
+	background: url(../media/star-sprite.png) 19px 0;
+	}
+	
+.active-star {
+	background: url(../media/star-sprite.png); 
+	}
+
+
