@@ -68,7 +68,7 @@
 //без этого цикла возникает ошибка, если выполняется условие в скобках, а с циклом появляются просто новые слоты. не понимаю, почему
 			for (var l = 0; l < data.length; l++) {
 				currentRaiting += data[l].raiting;
-			}
+			} 
 			if (myData.count > data.length) {  
 				myData.count = data.length;		
 			} 			
@@ -111,7 +111,30 @@
 					myGet(this, myData);
 				}
 			} 					
-		},
+		}
+		//настройка параметров settings
+		mySettingsEvent = function() {		
+			$('#reviews-cover').toggle();
+			$('#settings-cover').html(myTmpl('settings'));
+			$('.page-title').addClass('page-title-active').on('click', myShowSetting);
+			$(this).addClass('settings-active');
+			$('h4').on('click', function() { 
+				if ($(this).parent().css('height') === '17px') {
+					$(this).parent().css('height', '100%') 
+				} else {
+					$(this).parent().css('height', '17px') 
+				}
+			});
+			$(this).bind('click', mySettingsEvent);
+			$(this).on('click', myShowSetting);
+		}
+		
+		myShowSetting = function() {
+				$(this).toggleClass('page-title-active');
+				$('.settings-active').removeClass('settings-active');
+				$('#reviews-cover').toggle();
+				$('#settings-cover').toggle();
+		}
 		
 		myCallEvent = function() {
 			myButton.css('display', 'none');
@@ -122,7 +145,8 @@
 			myGet(this, myData);
 			myButton.unbind('click');
 			myButton.on('click', myCall);
-			$('.add-reviews').on('click', myAddReviewEvent);			
+			$('.add-reviews').on('click', myAddReviewEvent);
+			$('.settings').on('click', mySettingsEvent);
 		}	
 		
 		myAddReviewEvent = function() {
