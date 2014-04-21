@@ -12,7 +12,7 @@
 	<div class="rating">Rating:</div>
 	<div class="stars">
 	<% for (var i = 1; i <= starCount; i++) { %>	
-	<div class="star-container"></div>
+	<div class="star-container raiting-star"></div>
 	<% }; %> 
 	</div>
 	<div id="cleaner"></div>
@@ -26,7 +26,7 @@
 		<div class="inner_left"><span class="ten from-container">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
 		<p class="text-feedback"><p></div>
 		<div class="inner_right">
-		<div class="comment-star"></div>
+		<div class="star-container comment-star"></div>
 		<%=myButton%>
 		</div>
 	</div>	
@@ -42,7 +42,7 @@
 		<div class="rating">Rating:</div>		
 		<div class="stars">
 		<% for (var i = 1; i <= starCount; i++) { %>	
-		<div class="star-container choice-star"></div>
+		<div class="star-container raiting-star choice-star"></div>
 		<% }; %> 
 		</div>
 		<div id="cleaner"></div>

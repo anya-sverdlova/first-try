@@ -1,4 +1,4 @@
-	var myData = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
+	var myData = { count: 5, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	
@@ -24,7 +24,7 @@
 	var date = new Date;
 	date = date.toString().split(' ');
 	
-	var myStarActivate, myCongratulationCover, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myShowReviews, myGet,
+	var myStarActivate, myCongratulationCover, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myChangeInsets, myGet,
   
 	myWidget = function(widgetParams) {					
 
@@ -45,7 +45,7 @@
 				data: JSON.stringify({
 				message : $('.review-input').val(),
 				author : $('.name-input').val(), 
-				date: date[4].slice(0, 5) + '  ' + date[2] + ' ' + date[1] + ' ' + date[3],
+				date: date[4].slice(0, 5) + ', ' + date[2] + ' ' + date[1] + ' ' + date[3],
 				raiting: $('.choice-star.active-star').length 
 				}),
 				success: function() {
@@ -96,7 +96,7 @@
 			myTemplateCover.css('display', 'none'); 
 		},
 		
-		myShowReviews = function() { 
+		myChangeInsets = function() { 
 			if (!$(this).hasClass('active-inset')) {  
 				$('.rev-btn').toggleClass('active-inset');
 				myInnerWrapper = $('#wrapper').find('.inner-wrapper');
@@ -135,13 +135,12 @@
 											.prop('id', 'congratulation')
 											.css({'display':'none', 'font-size':'20px', 'text-align':'center'})
 											.html('Congratulation! Your review will be published!');											
-			//$('').on();
 			$('.add-reviews').unbind('click')	
-						.on('click', myShowReviews)
+						.on('click', myChangeInsets)
 						.addClass('active-inset');
-			$('.reviews').on('click', myShowReviews)
+			$('.reviews').on('click', myChangeInsets)
 						.removeClass('active-inset');
-			$('.choice-star').on('click', function() { $(this).addClass('active-star') })
+			$('.choice-star').on('click', function() { $(this).toggleClass('active-star') })
 		}				
 		
 		myButton = $('<button>').appendTo('body')
