@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	background: grey;
+	background: rgba(0,0,0,0.5);
 	font-family: 'Arial';
 	}
 	
@@ -11,55 +11,53 @@ body {
 #cover {
 	width: 385px;
 	margin: auto;
-	background: #ffffff;
+	background: #fff;
 	margin-top: 7%;
 	padding-bottom: 5px;
 	min-height: 330px;
+	border-radius: 5px;
+	box-shadow: 10px 10px 45px rgba(0,0,0,0.5),
+				-5px -5px 45px rgba(0,0,0,0.5);
+	}
+
+.top-menu-cover {
+	border-bottom: 3px double grey;
 	}
 	
-.page-title, .settings, .close, .rating  {
+.page-title, .settings, .close, .rating, .stars-outer  {
 	padding: 5px;
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: middle;
 	font-size: 14px;
 	}
 	
 .close {
+	padding: 5px 3px 5px 8px;
 	height: 18px;
 	width: 12px;
+	background: rgba(51, 153, 204, 0.3);
 	}
 	
-.page-title {
-	width: 295px;
-	height: 18px;
-	background: #3399cc;
-	text-align: left;
-	color: white;
-	}
-
-.page-title-active {
-	background: #fff;
+.page-title  {	
 	color: #000;
-	}
-	
-.page-title-active:hover {
-	background: #3399cc;
-	color: #fff;
-	outline: none;
+	width: 290px;
+	height: 18px;
+	background: rgba(51, 153, 204, 0.3);
 	}
 	
 .settings {
-	width: 48px;
+	width: 52px;
 	height: 18px;
+	background: rgba(51, 153, 204, 0.3);
 	}
 	
-.close:hover, .settings:hover {
+.page-title:hover, .close:hover, .settings:hover {
 	background: #3399cc;
 	color: white;
 	cursor: pointer;
 	}
 	
-.stars img {
+.stars-container img {
 	display: inline-block;
 	padding: 0 3px;
 	margin-top: -2px;
@@ -92,11 +90,11 @@ body {
 	margin-left: -5px;
 	}
 
-.blue {
+.date {
 	color: #3399cc;
 	}
 	
-.ten {
+.from-container {
 	font-size: 10px;
 	}
 	
@@ -107,8 +105,7 @@ body {
 	}
 	
 .rating {
-	font-size: 11px;
-	float: left;
+	margin-right: -10px;
 	}
 	
 .text_block {
@@ -159,6 +156,15 @@ button {
 	color: white;
 	font-size: 20px;
 	}
+
+.wrapper-set {
+	text-align: center;
+	font-size: 13px;
+	}
+	
+.wrapper-set .raiting {
+	clear: both;
+	}
 	
 #wrapper input {
 	width: 195px;
@@ -183,9 +189,6 @@ button {
 	height: 18px; 
 	background: url(../media/star-sprite-new.png)  19px 0; 
 	opacity: 0.6;
-	}
-
-.raiting-star {
 	display: inline-block;
 	margin: 2px;
 	}
@@ -205,13 +208,15 @@ button {
 	margin-top: 20px;
 	}
 	
-.radio-cover { 
-	outline: 1px solid #3399cc;
-	margin: 10px 5px;
+.radio-cover { 	
+	margin: 15px 10px;
 	padding: 5px;
 	height: 17px;
 	overflow: hidden;
-	background: #dbeef7;
+	background: rgba(51, 153, 204, 0.3);
+	box-shadow: 5px 5px 10px grey;
+	border: 1px solid #3399cc;
+	border-radius: 5px;
 	}
 	
 .radio-cover input {
@@ -228,7 +233,12 @@ button {
 	cursor: pointer;
 	}
 	
-.settings-active {
+#get-all {
+	margin-left: 20px;
+	}
+	
+.current-inset {
 	background: #3399cc;
+	text-align: left;
 	color: #fff;
 	}

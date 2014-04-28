@@ -5,14 +5,15 @@
 <meta charset="UTF-8">
 <script type="text/javascript" src="$_widget.js"></script>
 <script type="text/template" id="result">
-	<div class="page-title">Page title</div><div class="settings">Settings</div><div class="close" onclick="myClose()">x</div>
-	
+	<div class="top-menu-cover">
+		<div class="page-title current-inset">Reviews</div><div class="settings">Settings</div><div class="close" onclick="myClose()">x</div>	
+	</div>
 	<div id="settings-cover"></div>
 	<div id="reviews-cover">
 		<div class="rating">Rating:</div>
-		<div class="stars">
+		<div class="stars-outer">
 			<% for (var i = 1; i <= starCount; i++) { %>	
-				<div class="star-container raiting-star"></div>
+				<div class="star-container"></div>
 			<% }; %> 
 		</div>
 		<div id="cleaner"></div>
@@ -24,7 +25,7 @@
 				<% for ( var i = 0; i < count; i++ ) { %>
 				<div class="text_block">
 					<div class="inner_left">
-						<span class="ten from-container">From</span>&nbsp;&nbsp;<span class="blue">date</span><br>
+						<span class="from-container">From</span>&nbsp;&nbsp;<span class="date">date</span><br>
 						<p class="text-feedback"><p>
 					</div>
 					<div class="inner_right">
@@ -38,43 +39,45 @@
 	</div>
 </script>
 <script type="text/template" id="request">	
-	Name<br>
+	<div>Name</div>
 	<input class="name-input"></input><br>
-	Review<br>
+	<div>Review</div>
 	<textarea class="review-input"></textarea><br>
 	<div class="rating">Rating:</div>		
-	<div class="stars">
+	<ul class="stars-outer">
 		<% for (var i = 1; i <= starCount; i++) { %>	
-			<div class="star-container raiting-star choice-star"></div>
+			<li class="star-container choice-star"></li>
 		<% }; %> 
-	</div>
+	</ul>
 	<div id="cleaner"></div>
 	<button id="send-review" onclick="myPostReviews()">Submit</button>	
 </script>
 <script type="text/template" id="settings">
 	<% for (var i = 1; i <= 3; i++) { %>	
 		<div class="radio-cover">
-			<% if (i === 1) { %>
-			<h4>Widget decor</h4>
-			<% for (var j = 1; j <= 3; j++) { %>
-				<input type="radio" name="decor"/><br>
-			<% }; %>
-			<input type="submit" value="Get it">
+			<% if (i === 1) { %>			
+			<h4 class="accordeon-header">Widget decor</h4>
+			<input type="radio" name="decor" id="blue"/>Blue<br>
+			<input type="radio" name="decor" id="green"/>Green<br>
+			<input type="radio" name="decor" id="black"/>Black<br>
+			<input type="button" value="Get it" id="decor-button">			
 			<% }; %>
 			<% if (i === 2) { %>
-			<h4>Number of reviews</h4>
-			<% for (var j = 1; j <= 3; j++) { %>
-				<input type="radio" name="number-of-review"/><br>
-			<% }; %>
+			<h4 class="accordeon-header">Number of reviews</h4>			
+			<input type="radio" name="number-of-review" value="3"/>3<br>
+			<input type="radio" name="number-of-review" value="4"/>4<br>
+			<input type="radio" name="number-of-review" value="5"/>5<br>
+			<input type="submit" value="Get it" id="number-of-review-button">
 			<% }; %>
 			<% if (i === 3) { %>
-			<h4>Raiting</h4>
-			<% for (var j = 1; j <= 2; j++) { %>
-				<input type="radio" name="raiting"/><br>
-			<% }; %>
+			<h4 class="accordeon-header">Raiting</h4>
+			<input type="radio" name="raiting"/>From high to low<br>
+			<input type="radio" name="raiting"/>From low to high<br>
+			<input type="submit" value="Get it">
 			<% }; %>
 		</div>
 	<% }; %> 
+	<input type="button" value="Get it all" id="get-all">
 </script>
 <script>
 	window.onload = function(){ 

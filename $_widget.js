@@ -1,4 +1,4 @@
-	var myData = { count: 5, myButton: '<button>Comment</button>', starCount: 5  };
+	var myData = { count: 3, myButton: '<button>Comment</button>', starCount: 5  };
 	
 	var myParent = document.getElementsByTagName('head')[0];	
 	
@@ -6,15 +6,6 @@
 	newScript.type = "text/javascript";
 	newScript.src = "js/lib/jquery-2.1.0.min.js";
 	myParent.appendChild(newScript);	
-
-	// var newScript2 = document.createElement('script');
-	// 	newScript2.type = "text/html";
-	// 	newScript2.src = "template-result.html";
-	// 	newScript2.id = "result";
-	// 	myParent.appendChild(newScript2);
-	// 	newScript2.onload = function() {
-	// 		console.log("test jquery: " + $('body'));
-	// 	};
 
 	var newCss = document.createElement('link');
 	newCss.rel = "stylesheet";
@@ -24,12 +15,14 @@
 	var date = new Date;
 	date = date.toString().split(' ');
 	
-	var myStarActivate, myCongratulationCover, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myChangeInsets, myGet,
+	var time = new Date().getTime();
+	
+	var myShowSetting, myStarActivate, myCongratulationCover, myReviewsArray, myPostTime, myPostName, myPostMessage, myPostReviews, myInnerWrapper, myButton, myCallEvent, myGetReviews, myTemplateCover, myTemplateCoverMini, myAddReviewEvent, myChangeInsets, myGet,
   
 	myWidget = function(widgetParams) {					
 
 		myGet = function(myData) { 
-			$.get('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ' )
+			$.get('https://api.mongolab.com/api/1/databases/first-base/collections/reviews?s={"number":-1}&apiKey=fUlPVExWjzXy1yjlMzvqzi1oREPQwkwQ' )
 			.done(function(myData) {
 				myGetReviews.call(this, myData);				
 			})
@@ -46,7 +39,8 @@
 				message : $('.review-input').val(),
 				author : $('.name-input').val(), 
 				date: date[4].slice(0, 5) + ', ' + date[2] + ' ' + date[1] + ' ' + date[3],
-				raiting: $('.choice-star.active-star').length 
+				raiting: $('.choice-star.active-star').length,
+				number: time
 				}),
 				success: function() {
 					myTemplateCoverMini.css('display', 'none');
@@ -63,23 +57,57 @@
 			}); 
 		},
 		
+		myAddReviewEvent = function() {
+			$('.wrapper-get').css('display', 'none');
+			myTemplateCoverMini = $('<div>').appendTo('#wrapper')
+											.prop('class', 'wrapper-set inner-wrapper')
+											.css('display', 'block')
+											.html(myTmpl('request', myData));
+			myCongratulationCover = $('<div>').appendTo('#cover')
+											.prop('id', 'congratulation')
+											.css({'display':'none', 'font-size':'20px', 'text-align':'center'})
+											.html('Congratulation! Your review will be published!');											
+			$('.add-reviews').unbind('click')	
+						.on('click', myChangeInsets)
+						.addClass('active-inset');
+			$('.reviews').on('click', myChangeInsets)
+						.removeClass('active-inset');
+						
+			$('.choice-star').on('click', myActivateStars);
+		}	
+
+		myActivateStars = function() {	
+			$('.choice-star').removeClass('active-star');
+			$(this).addClass('active-star'); 
+			var myStars = $('.choice-star');
+			for (var i = 0; i < myStars.length ; i++) { 
+				if ($(myStars[i]).hasClass('active-star')) { 
+					$('.choice-star:lt(' + i + ')').addClass('active-star');
+					$('.choice-star:gt(' + i + ')').removeClass('active-star'); 
+					return i = 0;
+				}
+			} 
+		}
+		
 		myGetReviews = function(data) {	
 		var currentRaiting = 0;		
-//без этого цикла возникает ошибка, если выполняется условие в скобках, а с циклом появляются просто новые слоты. не понимаю, почему
+
 			for (var l = 0; l < data.length; l++) {
 				currentRaiting += data[l].raiting;
-			} 
+			}
+//этот кусок цикла нужен на тот случай, если ревьюх меньше, чем требуется вывести на страницу. нужно вынести его в init
 			if (myData.count > data.length) {  
 				myData.count = data.length;		
 			} 			
-			for (var j = 0, i = data.length - 1; i <= 0, j < myData.count; i--, j++) {	
-				$('.text-feedback')[j].innerHTML = data[i].message;
-				$('.from-container')[j].innerHTML = data[i].author;
-				$('.blue')[j].innerHTML = data[i].date;
+				
+			for (var i = 0; i < myData.count; i++) {
+				$('.text-feedback')[i].innerHTML = data[i].message;
+				$('.from-container')[i].innerHTML = data[i].author;
+				$('.date')[i].innerHTML = data[i].date;
 				if (data[i].raiting > 2) { 
-					$($('.comment-star')[j]).addClass('active-star');					
+					$($('.comment-star')[i]).addClass('active-star');					
 				}
-			} 			
+			}
 			for (var k = 0; k < Math.round(currentRaiting/data.length); k++) {
 				$($('.star-container')[k]).addClass('active-star');
 			}
@@ -108,32 +136,42 @@
 					}
 				}
 				if ($(this).hasClass('reviews')) {
-					myGet(this, myData);
+					myGet(this, myData);					
 				}
 			} 					
 		}
 		//настройка параметров settings
 		mySettingsEvent = function() {		
-			$('#reviews-cover').toggle();
+			$('#reviews-cover').hide();
 			$('#settings-cover').html(myTmpl('settings'));
-			$('.page-title').addClass('page-title-active').on('click', myShowSetting);
-			$(this).addClass('settings-active');
-			$('h4').on('click', function() { 
-				if ($(this).parent().css('height') === '17px') {
-					$(this).parent().css('height', '100%') 
-				} else {
-					$(this).parent().css('height', '17px') 
-				}
-			});
-			$(this).bind('click', mySettingsEvent);
-			$(this).on('click', myShowSetting);
+			$('.page-title').removeClass('current-inset').on('click', myShowReviews);
+			$(this).addClass('current-inset');
+			$('.accordeon-header').on('click', myAccordeon); 
+			$(this).unbind('click', mySettingsEvent); 
+			$(this).on('click', myShowSettings); 
+			$('#number-of-review-button').on('click', function() {myData.count = +$('input:checked').val()}); 			
 		}
 		
-		myShowSetting = function() {
-				$(this).toggleClass('page-title-active');
-				$('.settings-active').removeClass('settings-active');
-				$('#reviews-cover').toggle();
-				$('#settings-cover').toggle();
+		myAccordeon = function() {			
+			if ($(this).parent().css('height') === '17px') {
+				$(this).parent().css('height', '100%') 
+			} else {
+				$(this).parent().css('height', '17px') 
+			}
+		}
+		
+		myShowReviews = function() { 
+			$(this).addClass('current-inset');
+			$('.settings').removeClass('current-inset');
+			$('#reviews-cover').show();
+			$('#settings-cover').hide(); 				
+		}
+		
+		myShowSettings = function() {
+			$(this).addClass('current-inset');
+			$('.page-title').removeClass('current-inset');
+			$('#reviews-cover').hide();
+			$('#settings-cover').show(); 
 		}
 		
 		myCallEvent = function() {
@@ -147,25 +185,7 @@
 			myButton.on('click', myCall);
 			$('.add-reviews').on('click', myAddReviewEvent);
 			$('.settings').on('click', mySettingsEvent);
-		}	
-		
-		myAddReviewEvent = function() {
-			$('.wrapper-get').css('display', 'none');
-			myTemplateCoverMini = $('<div>').appendTo('#wrapper')
-											.prop('class', 'wrapper-set inner-wrapper')
-											.css('display', 'block')
-											.html(myTmpl('request', myData));
-			myCongratulationCover = $('<div>').appendTo('#cover')
-											.prop('id', 'congratulation')
-											.css({'display':'none', 'font-size':'20px', 'text-align':'center'})
-											.html('Congratulation! Your review will be published!');											
-			$('.add-reviews').unbind('click')	
-						.on('click', myChangeInsets)
-						.addClass('active-inset');
-			$('.reviews').on('click', myChangeInsets)
-						.removeClass('active-inset');
-			$('.choice-star').on('click', function() { $(this).toggleClass('active-star') })
-		}				
+		}			
 		
 		myButton = $('<button>').appendTo('body')
 								.prop('id', 'startButton')
