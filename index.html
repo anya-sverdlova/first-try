@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Widget-try</title>
+<title>BB-try</title>
 <meta charset="UTF-8">
 	<link rel="stylesheet" href="css/stylesheet.css"/>
 	<link rel="stylesheet" href="css/changable-stylesheet.css"/>
@@ -9,50 +9,42 @@
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
 	<script type="text/javascript" src="js/bb/model_main.js"></script>
+    <script type="text/javascript" src="js/bb/views/view_showRaitingWindow.js"></script>
+    <script type="text/javascript" src="js/bb/views/view_showReviewWindow.js"></script>
+    <script type="text/javascript" src="js/bb/views/view_showSettingsWindow.js"></script>
     <script type="text/javascript" src="js/bb/views/view_createTopMenu.js"></script>
 	<script type="text/javascript" src="js/bb/views/view_showMainWindow.js"></script>
 	<script type="text/javascript" src="js/bb/router.js"></script>
 </head>
 <body>
-<div data-purpose="top-container" id="cover" style="display: none;"></div>
-<script type="text/template" id="top-menu">
-    <div class="top-menu-cover">
-        <div class="page-title current-inset">Reviews</div
-        ><div class="settings">Settings</div
-        ><div class="close">x</div>
+<div data-purpose="top-container" id="cover" style="display: none;">
+    <div class="top-menu-cover"></div>
+    <div class="content-cover">
+        <div id="settings-cover" data-purpose="middle-container" style="display: none;"></div>
+        <div id="reviews-cover" data-purpose="middle-container">
+            <div class="raiting-cover"></div>
+            <div id="wrapper">
+                <div class="inner-wrapper wrapper-get" data-purpose="bottom-container"></div>
+                <div class="inner-wrapper wrapper-set" data-purpose="bottom-container" style="display: none;"></div>
+            </div>
+        </div>
     </div>
-    <div class="content-cover"></div>
+</div>
+<script type="text/template" id="top-menu">
+    <a class="page-title current-inset" href="#/reviews">Reviews</a
+    ><a class="settings" href="#/settings">Settings</a
+    ><a class="close" href="">x</a>
 </script>
-<script type="text/template" id="result">
-	<div id="settings-cover"></div>
-	<div id="reviews-cover">
-		<div class="rating">Rating:</div>
-		<div class="stars-outer">
-			<% for (var i = 0; i < 5; i++) { %>
-				<div class="star-container raiting-star"></div>
-			<% }; %>
-		</div>
-		<div id="cleaner"></div>
-		<div class="rev-btn reviews active-inset">Reviews</div>
-		<div class="rev-btn add-reviews">Add reviews</div>
-		<!-- common part -->
-		<div id="wrapper">
-			<div class="inner-wrapper wrapper-get">
-				<% for ( var i = 0; i < 3; i++ ) { %>
-				<div class="text_block">
-					<div class="inner_left">
-						<span class="from-container">From</span>&nbsp;&nbsp;<span class="date">date</span><br>
-						<p class="text-feedback"><p>
-					</div>
-					<div class="inner_right">
-						<div class="star-container comment-star"></div>
-						<button>Comment</button>
-					</div>
-				</div>
-				<% }; %>
-			</div>
-		</div>
-	</div>
+<script type="text/template" id="raiting">
+    <div class="rating">Rating:</div>
+    <div class="stars-outer">
+        <% for (var i = 0; i < 5; i++) { %>
+        <div class="star-container raiting-star"></div>
+        <% }; %>
+    </div>
+    <div id="cleaner"></div>
+    <div class="rev-btn reviews active-inset">Reviews</div>
+    <div class="rev-btn add-reviews">Add reviews</div>
 </script>
 <script type="text/template" id="request">	
 	<div>Name</div>
@@ -69,7 +61,7 @@
 	<button id="send-review" onclick="myCheckPostingReview()">Submit</button>	
 </script>
 <script type="text/template" id="reviewInner">
-	<% for ( var i = 0; i < myData.widgetCount; i++ ) { %>
+	<% for ( var i = 0; i < 3; i++ ) { %>
 			<div class="text_block">
 				<div class="inner_left">
 					<span class="from-container">From</span>&nbsp;&nbsp;<span class="date">date</span><br>

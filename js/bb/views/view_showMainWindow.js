@@ -8,11 +8,8 @@ window.myWidget.showMainWindow = Backbone.View.extend ({
         this.el = $('.content-cover');
         this.el.parent().addClass(this.model.defaults.widgetLook);
         this.render();
-        this.model.myModelToggle();
-    },
-
-    getButtons: function() {
-
+        this.el.parent().show();
+        return this;
     },
 
     render: function() {

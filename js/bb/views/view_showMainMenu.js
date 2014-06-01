@@ -9,10 +9,6 @@ window.myWidget.showMainMenu = Backbone.View.extend ({
         $('.close').on('click', this.myToggle);
     },
 
-    myClose: function() {
-
-    },
-
     myToggle: function() {
         console.log(this);
     }

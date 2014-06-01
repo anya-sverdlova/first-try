@@ -10,7 +10,8 @@ myWidget.model = Backbone.Model.extend({
     },
 
     params: {
-        widgetLook: ''
+        widgetLook: '',
+        widgetCount: '4'
     },
 
     myModelMethod: function( ) {
