@@ -24,35 +24,39 @@ body {
 	border-bottom: 3px double grey;
 	}
 	
-.page-title, .settings, .close, .rating, .stars-outer  {
+.page-title, 
+.settings, 
+.close, 
+.rating, 
+.stars-outer  {
 	padding: 5px;
 	display: inline-block;
 	vertical-align: middle;
 	font-size: 14px;
 	}
 	
-.close {
+.close{
 	padding: 5px 3px 5px 8px;
+	border-radius: 0 5px 0 0;
 	height: 18px;
-	width: 12px;
-	background: rgba(51, 153, 204, 0.3);
+	width: 12px;	
 	}
 	
 .page-title  {	
 	color: #000;
 	width: 290px;
 	height: 18px;
-	background: rgba(51, 153, 204, 0.3);
+	border-radius: 5px 0 0 0;
 	}
 	
 .settings {
 	width: 52px;
 	height: 18px;
-	background: rgba(51, 153, 204, 0.3);
 	}
 	
-.page-title:hover, .close:hover, .settings:hover {
-	background: #3399cc;
+.page-title:hover, 
+.close:hover, 
+.settings:hover {
 	color: white;
 	cursor: pointer;
 	}
@@ -63,20 +67,17 @@ body {
 	margin-top: -2px;
 	}
 	
-.reviews, .add-reviews {
+.reviews, 
+.add-reviews {
 	display: inline-block;
 	padding: 5px;
 	margin-top: 5px;	
 	font-size: 11px;
 	cursor: pointer;
-	background: #3399cc;
 	color: #fff;
 	}
 	
 .active-inset {	
-	background: #fff;
-	border: 1px solid #3399cc;
-	border-bottom: 1px solid #fff;
 	margin-bottom: -1px;
 	border-radius: 5px 5px 0 0;	
 	color: #000;
@@ -89,10 +90,6 @@ body {
 .add-reviews {
 	margin-left: -5px;
 	}
-
-.date {
-	color: #3399cc;
-	}
 	
 .from-container {
 	font-size: 10px;
@@ -100,7 +97,6 @@ body {
 	
 #wrapper {
 	padding: 10px;
-	border-top: 1px solid #3399cc;
 	font-size: 11px;
 	}
 	
@@ -111,7 +107,6 @@ body {
 .text_block {
 	width: 97%;
 	height: 55px;
-	border: 1px solid #3399cc;
 	padding: 0 5px;
 	margin-bottom: 12px;
 	overflow: hidden;
@@ -122,14 +117,14 @@ button {
 	height: 14px;
 	margin-left: 19px;
 	margin-top: 36px;
-	background: #3399cc;
 	border: none;
 	font-size: 9px;
 	color: white;
 	cursor: pointer;
 	}
 	
-.inner_left, .inner_right {
+.inner_left, 
+.inner_right {
 	display: inline-block;
 	vertical-align: top;
 	}
@@ -154,6 +149,7 @@ button {
 	margin-top: -50px;
 	border: 2px solid white;
 	color: white;
+	background: #3399cc;
 	font-size: 20px;
 	}
 
@@ -168,13 +164,11 @@ button {
 	
 #wrapper input {
 	width: 195px;
-	border: 1px solid #3399cc;
 	}
 	
 .review-input {
 	height: 75px;
 	width: 195px;
-	border: 1px solid #3399cc;
 	resize: none;
 	}
 	
@@ -182,6 +176,7 @@ button {
 	margin: 0;
 	height: 25px;
 	width: 82px;
+	border-radius: 5px;
 	}
 	
 .star-container {
@@ -212,11 +207,10 @@ button {
 	margin: 15px 10px;
 	padding: 5px;
 	height: 17px;
-	overflow: hidden;
-	background: rgba(51, 153, 204, 0.3);
+	overflow: hidden;	
 	box-shadow: 5px 5px 10px grey;
-	border: 1px solid #3399cc;
 	border-radius: 5px;
+	font-size: 13px;
 	}
 	
 .radio-cover input {
@@ -238,7 +232,37 @@ button {
 	}
 	
 .current-inset {
-	background: #3399cc;
 	text-align: left;
 	color: #fff;
+	}
+
+#congratulation {	
+	display: none; 
+	padding: 70px 50px;
+	height: 196px;
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+	line-height: 1.5;	
+	}
+	
+.name-input, .review-input {
+	padding: 5px;
+	margin-top: 5px;
+	}
+	
+.name-input::-webkit-input-placeholder {
+	color: red;
+	}
+	
+.name-input:-moz-placeholder {
+	color: red;
+	}
+	
+.review-input::-webkit-input-placeholder {
+	color: red;
+	}
+	
+.review-input:-moz-placeholder {
+	color: red;
 	}

@@ -1,0 +1,145 @@
+/* blue style */
+
+.widget-blue .close,
+.widget-blue .page-title,
+.widget-blue .settings{
+	background: rgba(51, 153, 204, 0.3);
+	}
+
+.widget-blue .page-title:hover,
+.widget-blue .close:hover,
+.widget-blue .settings:hover,
+.widget-blue button,
+.widget-blue .reviews,
+.widget-blue .add-reviews,
+.widget-blue .current-inset {
+	background: #3399cc;
+	}
+
+.widget-blue .active-inset,
+.widget-blue .text_block,
+.widget-blue #wrapper input,
+.widget-blue .review-input,
+.widget-blue .radio-cover{
+	border: 1px solid #3399cc;
+	}
+
+.widget-blue #wrapper {
+	border-top: 1px solid #3399cc;
+	}
+
+.widget-blue .date {
+	color: #3399cc;
+	}
+
+.widget-blue #congratulation {
+	color: #3399cc;
+	text-shadow: 1px 1px 10px grey;
+	}
+
+.widget-blue .active-inset {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+	}
+
+.widget-blue .radio-cover {
+	background: rgba(51, 153, 204, 0.3);
+	}
+
+/* green style*/
+
+.widget-green .close,
+.widget-green .page-title,
+.widget-green .settings{
+	background: rgba(46, 151, 59, 0.3);
+	}
+
+.widget-green .page-title:hover,
+.widget-green .close:hover,
+.widget-green .settings:hover,
+.widget-green button,
+.widget-green .reviews,
+.widget-green .add-reviews,
+.widget-green .current-inset {
+	background: #2e973b;
+	}
+
+.widget-green .active-inset,
+.widget-green .text_block,
+.widget-green #wrapper input,
+.widget-green .review-input,
+.widget-green .radio-cover{
+	border: 1px solid #2e973b;
+	}
+
+.widget-green #wrapper {
+	border-top: 1px solid #2e973b;
+	}
+
+.widget-green .date {
+	color: #2e973b;
+	}
+
+.widget-green #congratulation {
+	color: #2e973b;
+	text-shadow: 3px 3px 18px #0e3013;
+	}
+
+.widget-green .active-inset {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+	}
+
+.widget-green .radio-cover {
+	background: rgba(46, 151, 59, 0.3);
+	}
+
+/* brown style */
+
+.widget-brown .close,
+.widget-brown .page-title,
+.widget-brown .settings{
+	background: rgba(212, 143, 33, 0.3);
+	}
+
+.widget-brown .page-title:hover,
+.widget-brown .close:hover,
+.widget-brown .settings:hover,
+.widget-brown button,
+.widget-brown .reviews,
+.widget-brown .add-reviews,
+.widget-brown .current-inset {
+	background: #d48f21;
+	}
+
+.widget-brown .active-inset,
+.widget-brown .text_block,
+.widget-brown #wrapper input,
+.widget-brown .review-input,
+.widget-brown .radio-cover{
+	border: 1px solid #d48f21;
+	}
+
+.widget-brown #wrapper {
+	border-top: 1px solid #d48f21;
+	}
+
+.widget-brown .date {
+	color: #d48f21;
+	}
+
+.widget-brown #congratulation {
+	color: #d48f21;
+	text-shadow: 3px 3px 10px #191104;
+	}
+
+.widget-brown .active-inset {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+	}
+
+.widget-brown .radio-cover {
+	background: rgba(212, 143, 33, 0.3);
+	}
+
+/* end of styles */
