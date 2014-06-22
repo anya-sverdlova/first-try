@@ -1,21 +1,33 @@
 /**Created by Sverdlova on 01.06.14.*/
 
+window.myWidget = window.myWidget || {};
+
 window.myWidget.createTopMenu = Backbone.View.extend ({
 
-    initialize: function(options) {
-       this.setMenuButtons();
+    el: 'div.top-menu-cover',
+//не могу передать в events функцию из модели
+    events: {
+        'click' : 'changeButton',
+        'click [data-purpose=toggle-button]' : 'middleContainerToggle'
     },
 
-    setMenuButtons: function() {
-        $('.close').on('click', this.changeButtonState);
-        $('.page-title').on('click', this.changeButtonState);
-        $('.settings').on('click', this.changeButtonState);
+    initialize: function() {
+        this.render();
     },
 
-    changeButtonState: function() {
-        $(this).parent().children().removeClass('current-inset');
-        $(this).addClass('current-inset');
+    render: function() {
+        this.$el.html(_.template($('#top-menu').html()));
+    },
+
+    changeButton: function(target, myClass) {
+        this.model.myButtonToggle(target, 'current-inset');
+    },
+
+    middleContainerToggle: function(e) {
+        if ($(e.target).hasClass('_active-button')) {
+            $("[data-purpose=middle-container]").toggle();
+            $('[data-purpose=toggle-button]').toggleClass('_active-button');
+        }
     }
 
 });
-

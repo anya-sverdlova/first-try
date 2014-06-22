@@ -2,52 +2,76 @@
  * Created by a.filippova on 29.05.14.
  */
 
+window.myWidget = window.myWidget || {};
+
 window.myWidget.router = Backbone.Router.extend ({
+
     routes: {
         '' : '',
-        'reviews': 'showReviewWindow',
-        'settings': 'showSettingsWindow'
+        'main': 'showMainWindow',
+        'settings': 'showSettingsWindow',
+        'review': 'showReviewWindow',
+        'addReview': 'showAddReviewWindow'
     },
 
     initialize : function() {
-        console.log('here is initialisation');
         this.startButton();
         this.createTopMenu();
-        this.showRaitingWindow();
+        this.showRatingWindow();
     },
     //crate container-link for button
     startButton: function() {
         $('<a>').appendTo('body')
                     .css('display', 'block')
-                    .attr({'href':'#/reviews', 'data-purpose':'top-container'})
+                    .attr({'href':'#/review', 'data-purpose':'top-container'})
                     .prop('class', 'startLink');
         $('<button>').appendTo('.startLink')
                     .prop('id', 'startButton')
-                    .html('Get Reviews');
+                    .html('Get Reviews')
+            .on('click', this.topContainerToggle);
     },
 
     createTopMenu: function() {
-        var myModel = new myWidget.model();
-        var myView = new myWidget.createTopMenu({model: myModel});
-        $('.top-menu-cover').html(_.template($('#top-menu').html()));
+        this.myModel = new myWidget.model();
+        this.myViewTopMenu = new myWidget.createTopMenu({model: this.myModel});
+
     },
 
-    showRaitingWindow: function() {
-        var myModel = new myWidget.model();
-        var myView = new myWidget.showRaitingWindow({model: myModel});
-        $('.raiting-cover').html(_.template($('#raiting').html()));
+    showRatingWindow: function() {
+        this.myModel = new myWidget.model();
+        this.myViewRating = new myWidget.showRatingWindow({model: this.myModel});
+    },
+
+    showMainWindow: function() {
+        this.myModel = new myWidget.model();
+        this.myViewMain = new myWidget.showMainWindow({model: this.myModel});
     },
 
     showSettingsWindow: function() {
-        var myModel = new myWidget.model();
-        var myView = new myWidget.showSettingsWindow({model: myModel});
-        $('#settings-cover').html(_.template($('#settings').html()));
+        this.myModel = new myWidget.model();
+        this.myViewSettings = new myWidget.showSettingsWindow({model: this.myModel});
     },
 
     showReviewWindow: function() {
-        var myModel = new myWidget.model();
-        this.myView = new myWidget.showReviewWindow({model: myModel});
-        $('[data-purpose=top-container]').toggle();
+        this.myModel = new myWidget.model();
+        this.myViewReview = new myWidget.showReviewWindow({model: this.myModel});
+    },
+
+    showAddReviewWindow: function() {
+        this.myModel = new myWidget.model();
+        this.myView = new myWidget.showAddReviewWindow({model: this.myModel});
+    },
+
+    topContainerToggle: function() {
+        $("[data-purpose=top-container]").toggle();
+    },
+
+    middleContainerToggle: function() {
+        $("[data-purpose=middle-container]").toggle();
+    },
+
+    bottomContainerToggle: function() {
+        $("[data-purpose=bottom-container]").toggle();
     }
 
 });

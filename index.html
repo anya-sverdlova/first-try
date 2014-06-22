@@ -9,30 +9,31 @@
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
 	<script type="text/javascript" src="js/bb/model_main.js"></script>
+	<script type="text/javascript" src="js/bb/views/view_showMainWindow.js"></script>
+	<script type="text/javascript" src="js/bb/views/view_showAddReviewWindow.js"></script>
     <script type="text/javascript" src="js/bb/views/view_showRaitingWindow.js"></script>
     <script type="text/javascript" src="js/bb/views/view_showReviewWindow.js"></script>
     <script type="text/javascript" src="js/bb/views/view_showSettingsWindow.js"></script>
     <script type="text/javascript" src="js/bb/views/view_createTopMenu.js"></script>
-	<script type="text/javascript" src="js/bb/views/view_showMainWindow.js"></script>
 	<script type="text/javascript" src="js/bb/router.js"></script>
 </head>
 <body>
 <div data-purpose="top-container" id="cover" style="display: none;">
     <div class="top-menu-cover"></div>
     <div class="content-cover">
-        <div id="settings-cover" data-purpose="middle-container" style="display: none;"></div>
+        <div id="settings-cover" data-purpose="middle-container"  style="display: none;"></div>
         <div id="reviews-cover" data-purpose="middle-container">
             <div class="raiting-cover"></div>
             <div id="wrapper">
-                <div class="inner-wrapper wrapper-get" data-purpose="bottom-container"></div>
-                <div class="inner-wrapper wrapper-set" data-purpose="bottom-container" style="display: none;"></div>
+                <div class="wrapper-get" data-purpose="bottom-container"></div>
+                <div class="wrapper-set" data-purpose="bottom-container" style="display: none;"></div>
             </div>
         </div>
     </div>
 </div>
 <script type="text/template" id="top-menu">
-    <a class="page-title current-inset" href="#/reviews">Reviews</a
-    ><a class="settings" href="#/settings">Settings</a
+    <a class="page-title current-inset" href="#/review" data-purpose="toggle-button">Reviews</a
+    ><a class="settings _active-button" href="#/settings" data-purpose="toggle-button">Settings</a
     ><a class="close" href="">x</a>
 </script>
 <script type="text/template" id="raiting">
@@ -43,8 +44,8 @@
         <% }; %>
     </div>
     <div id="cleaner"></div>
-    <div class="rev-btn reviews active-inset">Reviews</div>
-    <div class="rev-btn add-reviews">Add reviews</div>
+    <a class="reviews active-inset" href="#/review" data-purpose="toggle-inset">Reviews</a>
+    <a class="add-reviews" href="#/addReview" data-purpose="toggle-inset">Add reviews</a>
 </script>
 <script type="text/template" id="request">	
 	<div>Name</div>
@@ -58,10 +59,10 @@
 		<% }; %> 
 	</ul>
 	<div id="cleaner"></div>
-	<button id="send-review" onclick="myCheckPostingReview()">Submit</button>	
+	<button id="send-review">Submit</button>
 </script>
 <script type="text/template" id="reviewInner">
-	<% for ( var i = 0; i < 3; i++ ) { %>
+	<% for ( var i = 0; i < widgetCount; i++ ) { %>
 			<div class="text_block">
 				<div class="inner_left">
 					<span class="from-container">From</span>&nbsp;&nbsp;<span class="date">date</span><br>
@@ -76,27 +77,27 @@
 </script>
 <script type="text/template" id="settings">
 	<% for (var i = 1; i <= 3; i++) { %>	
-		<div class="radio-cover">
-			<% if (i === 1) { %>			
-			<h4 class="accordeon-header">Widget decor</h4>
+		<div class="radio-cover" style="height: 17px;">
+			<% if (i === 1) { %>
+			<h4 class="accordion-header">Widget decor</h4>
 			<input type="radio" name="decor" value="widget-blue"/>Blue<br>
 			<input type="radio" name="decor" value="widget-green"/>Green<br>
 			<input type="radio" name="decor" value="widget-brown"/>Brown<br>
-			<input type="button" value="Apply" id="decor-button" class="setting-button">			
+			<a href="#/review" class="setting-button"><input type="button" value="Apply" id="decor-button" class="setting-button"></a>
 			<% }; %>
 			<% if (i === 2) { %>
-			<h4 class="accordeon-header">Number of reviews</h4>			
+			<h4 class="accordion-header">Number of reviews</h4>
 			<input type="radio" name="number-of-review" value="3"/>3<br>
 			<input type="radio" name="number-of-review" value="4"/>4<br>
 			<input type="radio" name="number-of-review" value="5"/>5<br>
-			<input type="button" value="Apply" id="number-of-review-button" class="setting-button">
+			<a href="#/review" class="setting-button"><input type="button" value="Apply" id="number-of-review-button" class="setting-button"></a>
 			<% }; %>
 			<% if (i === 3) { %>
-			<h4 class="accordeon-header">Review order</h4>
+			<h4 class="accordion-header">Review order</h4>
 			<input type="radio" name="reviews-order" value="1"/>Best<br>
 			<input type="radio" name="reviews-order" value="-1"/>Worst<br>
 			<input type="radio" name="reviews-order" value="0"/>Latest<br>
-			<input type="button" value="Apply" id="reviews-order" class="setting-button">
+			<a href="#/review" class="setting-button"><input type="button" value="Apply" id="reviews-order" class="setting-button"></a>
 			<% }; %>
 		</div>
 	<% }; %> 
@@ -104,8 +105,10 @@
 </script>
 <script>
 	var router = new myWidget.router({});
+	//var model = new myWidget.model;
 
 Backbone.history.start();
 </script>
 </body>
+
 </html>

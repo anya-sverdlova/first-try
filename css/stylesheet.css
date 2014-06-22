@@ -77,9 +77,10 @@ body {
 	font-size: 11px;
 	cursor: pointer;
 	color: #fff;
+	text-decoration: none;
 	}
-	
-.active-inset {	
+
+.active-inset {
 	margin-bottom: -1px;
 	border-radius: 5px 5px 0 0;	
 	color: #000;
@@ -208,7 +209,6 @@ button {
 .radio-cover { 	
 	margin: 15px 10px;
 	padding: 5px;
-	height: 17px;
 	overflow: hidden;	
 	box-shadow: 5px 5px 10px grey;
 	border-radius: 5px;
@@ -227,6 +227,11 @@ button {
 	font-weight: normal;
 	font-style: italic;
 	cursor: pointer;
+	}
+
+.radio-cover a {
+	color: #000;
+	text-decoration: none;
 	}
 	
 #get-all {

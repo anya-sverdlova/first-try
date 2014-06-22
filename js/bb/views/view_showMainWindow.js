@@ -1,20 +1,43 @@
 /**
- * Created by a.filippova on 29.05.14.
+ * Created by Sverdlova on 01.06.14.
  */
+
+window.myWidget = window.myWidget || {};
 
 window.myWidget.showMainWindow = Backbone.View.extend ({
 
-    initialize: function(options) {
-        this.el = $('.content-cover');
-        this.el.parent().addClass(this.model.defaults.widgetLook);
-        this.render();
-        this.el.parent().show();
-        return this;
+    el: 'div#cover',
+
+    initialize: function(model) {
+        this.render(model);
+        this.model.myChangeStyle();
     },
 
-    render: function() {
-        this.el.html(_.template($('#result').html()));
-        return this;
+    render: function(model) {
+        widgetCount = this.model.params.widgetCount;
+        this.$el.find('.wrapper-get').html(_.template($('#reviewInner').html()), widgetCount).show();
     }
 
+});
+
+ParentView = Backbone.View.extend({
+	mySharedFunction: function () {
+
+	}
+});
+
+ChildView1 = ParentView.extend({
+	myFunc1 : function () {
+
+	},
+
+	myFunc: function() {
+		this.mySharedFunction();
+	}
+});
+
+ChildView2 = ParentView.extend({
+	myFunc2 : function () {
+		this.mySharedFunction();	
+	}
 });
